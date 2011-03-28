@@ -1,0 +1,30 @@
+﻿.gmapContainer
+{
+	width: 100%;
+}
+
+.gmapContainer input.place
+{
+	width: 375px;
+	margin: 0 5px 3px 0;
+}
+
+.gmapContainer input.value
+{
+	clear: left;
+	width: 375px;
+	margin: 0 5px 0 0;
+	background-color: #eeeeee;
+}
+
+.gmapContainer .button
+{
+	width: 75px;
+}
+
+.gmapContainer .map
+{
+	clear: both;
+	height: 375px;
+	width: inherit;
+}

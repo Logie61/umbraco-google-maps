@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+	<files />
+	<info>
+		<package>
+			<name>Google Maps for Umbraco</name>
+			<version>2.0</version>
+			<license url="http://www.opensource.org/licenses/gpl-3.0.html">GPLv3</license>
+			<url>http://our.umbraco.org/projects/backoffice-extensions/google-maps-datatype</url>
+			<requirements>
+				<major>4</major>
+				<minor>7</minor>
+				<patch>0</patch>
+			</requirements>
+		</package>
+		<author>
+			<name>Darren Ferguson, Lee Kelleher</name>
+			<website>http://our.umbraco.org</website>
+		</author>
+		<readme><![CDATA[]]></readme>
+	</info>
+	<DocumentTypes />
+	<Templates />
+	<Stylesheets />
+	<Macros />
+	<DictionaryItems />
+	<Languages />
+	<DataTypes />
+	<Actions />
+</umbPackage>
