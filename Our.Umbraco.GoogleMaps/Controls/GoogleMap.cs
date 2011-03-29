@@ -11,11 +11,20 @@ using Our.Umbraco.GoogleMaps.Extensions;
 namespace Our.Umbraco.GoogleMaps.Controls
 {
 	/// <summary>
-	/// 
+	/// Google Map control.
 	/// </summary>
 	[ToolboxData("<{0}:GoogleMap runat=server></{0}:GoogleMap>")]
 	public class GoogleMap : WebControl
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GoogleMap"/> class.
+		/// </summary>
+		public GoogleMap()
+			: base(HtmlTextWriterTag.Div)
+		{
+			this.CssClass = "map";
+		}
+
 		/// <summary>
 		/// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
 		/// </summary>
@@ -24,32 +33,12 @@ namespace Our.Umbraco.GoogleMaps.Controls
 		{
 			base.OnLoad(e);
 
+			////// set the id for the output/markup
+			//// var clientId = this.Parent != null ? this.Parent.ClientID : this.ClientID;
+			//// this.ID = string.Concat("map_", clientId);
+
 			// Adds the client dependencies.
 			this.AddResourceToClientDependency("Our.Umbraco.GoogleMaps.Controls.GoogleMap.css", ClientDependencyType.Css);
-		}
-
-		public override void RenderBeginTag(HtmlTextWriter writer)
-		{
-			// base.RenderBeginTag(writer);
-		}
-
-		public override void RenderEndTag(HtmlTextWriter writer)
-		{
-			// base.RenderEndTag(writer);
-		}
-
-		/// <summary>
-		/// Renders the contents.
-		/// </summary>
-		/// <param name="output">The output.</param>
-		protected override void RenderContents(HtmlTextWriter writer)
-		{
-			var clientId = this.Parent != null ? this.Parent.ClientID : this.ClientID;
-			writer.AddAttribute(HtmlTextWriterAttribute.Id, string.Concat("map_", clientId));
-			writer.AddAttribute(HtmlTextWriterAttribute.Class, "map");
-			writer.AddAttribute(HtmlTextWriterAttribute.Style, string.Format("height:{0}px;width:{1}px;", this.Height.Value, this.Width.Value));
-			writer.RenderBeginTag(HtmlTextWriterTag.Div);
-			writer.RenderEndTag(); // .map
 		}
 	}
 }

@@ -11,10 +11,30 @@ using Our.Umbraco.GoogleMaps.Extensions;
 
 namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 {
+	/// <summary>
+	/// A control for a Google Map to store a single location.
+	/// </summary>
 	public class SingleLocationControl : WebControl
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SingleLocationControl"/> class.
+		/// </summary>
+		public SingleLocationControl()
+			: base(HtmlTextWriterTag.Div)
+		{
+			this.CssClass = "gmapContainer";
+		}
+
+		/// <summary>
+		/// Gets or sets the current location.
+		/// </summary>
+		/// <value>The current location.</value>
 		public string CurrentLocation { get; set; }
 
+		/// <summary>
+		/// Gets or sets the current zoom.
+		/// </summary>
+		/// <value>The current zoom.</value>
 		public string CurrentZoom { get; set; }
 
 		/// <summary>
@@ -70,18 +90,52 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// <value>The default zoom.</value>
 		public string DefaultZoom { get; set; }
 
+		/// <summary>
+		/// Gets or sets the google map.
+		/// </summary>
+		/// <value>The google map.</value>
 		public GoogleMap GoogleMap { get; set; }
 
+		/// <summary>
+		/// Gets or sets the hidden location.
+		/// </summary>
+		/// <value>The hidden location.</value>
+		public HtmlInputHidden HiddenLocation { get; set; }
+
+		/// <summary>
+		/// Gets or sets the location text box.
+		/// </summary>
+		/// <value>The location text box.</value>
 		public HtmlInputText LocationTextBox { get; set; }
 
+		/// <summary>
+		/// Gets or sets the location button.
+		/// </summary>
+		/// <value>The location button.</value>
 		public HtmlInputButton LocationButton { get; set; }
 
+		/// <summary>
+		/// Gets or sets the height of the map.
+		/// </summary>
+		/// <value>The height of the map.</value>
 		public string MapHeight { get; set; }
 
+		/// <summary>
+		/// Gets or sets the width of the map.
+		/// </summary>
+		/// <value>The width of the map.</value>
 		public string MapWidth { get; set; }
 
+		/// <summary>
+		/// Gets or sets the search text box.
+		/// </summary>
+		/// <value>The search text box.</value>
 		public HtmlInputText SearchTextBox { get; set; }
 
+		/// <summary>
+		/// Gets or sets the search button.
+		/// </summary>
+		/// <value>The search button.</value>
 		public HtmlInputButton SearchButton { get; set; }
 
 		/// <summary>
@@ -103,6 +157,9 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		{
 			base.OnLoad(e);
 
+			// set the ID of the control
+			this.ID = string.Concat("gmapContainer_", this.ClientID);
+
 			// Adds the client dependencies.
 			this.AddResourceToClientDependency("Our.Umbraco.GoogleMaps.DataTypes.SingleLocation.SingleLocation.js", ClientDependency.Core.ClientDependencyType.Javascript);
 		}
@@ -114,91 +171,53 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		{
 			base.CreateChildControls();
 
+			var divSearch = new HtmlGenericControl("div");
+
 			// search box
 			this.SearchTextBox = new HtmlInputText();
 			this.SearchTextBox.Attributes.Add("class", "place");
-			this.Controls.Add(this.SearchTextBox);
+			divSearch.Controls.Add(this.SearchTextBox);
 
 			// search button
 			this.SearchButton = new HtmlInputButton() { Value = "Search" };
 			this.SearchButton.Attributes.Add("class", "button");
 			this.SearchButton.Attributes.Add("onclick", "javascript:fergusonMoriyamaMapDataType.search(this); return false;");
-			this.Controls.Add(this.SearchButton);
+			divSearch.Controls.Add(this.SearchButton);
+
+			this.Controls.Add(divSearch);
+
+			var divLocation = new HtmlGenericControl("div");
 
 			// location box
 			this.LocationTextBox = new HtmlInputText();
 			this.LocationTextBox.Attributes.Add("class", "value");
 			this.LocationTextBox.Value = this.Data;
-			this.Controls.Add(this.LocationTextBox);
+			divLocation.Controls.Add(this.LocationTextBox);
 
 			// location button
 			this.LocationButton = new HtmlInputButton() { Value = "Clear" };
 			this.LocationButton.Attributes.Add("class", "button");
 			this.LocationButton.Attributes.Add("onclick", "javascript:fergusonMoriyamaMapDataType.clear(this); return false;");
-			this.Controls.Add(this.LocationButton);
+			divLocation.Controls.Add(this.LocationButton);
 
-			this.GoogleMap = new GoogleMap();
-			this.GoogleMap.Height = Unit.Parse(this.MapHeight);
-			this.GoogleMap.Width = Unit.Parse(this.MapWidth);
+			this.Controls.Add(divLocation);
+
+			this.GoogleMap = new GoogleMap()
+			{
+				CssClass = "map",
+				ID = string.Concat("map_", this.ClientID),
+				Height = Unit.Parse(this.MapHeight),
+				Width = Unit.Parse(this.MapWidth)
+			};
 			this.Controls.Add(this.GoogleMap);
-		}
 
-		public override void RenderBeginTag(HtmlTextWriter writer)
-		{
-			writer.AddAttribute(HtmlTextWriterAttribute.Id, string.Concat("gmapContainer_", this.ClientID));
-			writer.AddAttribute(HtmlTextWriterAttribute.Class, "gmapContainer");
-			writer.RenderBeginTag(HtmlTextWriterTag.Div);
-		}
-
-		public override void RenderEndTag(HtmlTextWriter writer)
-		{
-			writer.RenderEndTag(); // .fmpContainer
-		}
-
-		/// <summary>
-		/// Renders the contents.
-		/// </summary>
-		/// <param name="output">The output.</param>
-		protected override void RenderContents(HtmlTextWriter writer)
-		{
-			writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-			//writer.WriteLine("<input type=\"text\" class=\"place\"/>");
-			this.SearchTextBox.RenderControl(writer);
-			//writer.Write("<input type=\"button\" value=\"Search\"/ onClick=\"fergusonMoriyamaMapDataType.search(this); return false;\" class=\"button\"/>");
-			this.SearchButton.RenderControl(writer);
-
-			writer.RenderEndTag();
-
-			writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-			// base.Render(writer); // render a TextBox with the default value
-			this.LocationTextBox.RenderControl(writer);
-			//writer.WriteLine("<input type=\"button\" value=\"Clear\" onClick=\"fergusonMoriyamaMapDataType.clear(this); return false;\" class=\"button\"/>");
-			this.LocationButton.RenderControl(writer);
-
-			writer.RenderEndTag();
-
-			this.GoogleMap.RenderControl(writer);
-
-			// writer.Write("<input id=\"defaultloc_" + id + "\" type=\"hidden\" class=\"defaultloc\" value=\"53.430785,-2.960515,12\"/>");
-			writer.AddAttribute(HtmlTextWriterAttribute.Id, string.Concat("defaultloc_", this.ClientID));
-			writer.AddAttribute(HtmlTextWriterAttribute.Class, "defaultloc");
-			writer.AddAttribute(HtmlTextWriterAttribute.Type, "hidden");
-			writer.AddAttribute(HtmlTextWriterAttribute.Value, string.Concat(this.DefaultLocation, ',', this.DefaultZoom));
-			writer.RenderBeginTag(HtmlTextWriterTag.Input);
-			writer.RenderEndTag(); // .defaultloc
-
-			// add jquery window load event
-			//			var javascriptMethod = string.Format("jQuery('#{0}').CharLimit();", this.ClientID);
-			//			var javascript = string.Concat("<script type='text/javascript'>jQuery(window).load(function(){", javascriptMethod, "});</script>");
-			//			writer.WriteLine(javascript);
-
-			//writer.WriteLine("<script type=\"text/javascript\">");
-			//writer.WriteLine("if (fergusonmoriyama == undefined)  { var fergusonmoriyama = {};");
-			////writer.WriteLine("fergusonmoriyama.defaultLocation = '" + c.DefaultLocation + "';");
-			//writer.WriteLine("fergusonmoriyama.defaultLocation = '53.430785,-2.960515,12';");
-			//writer.WriteLine("jQuery.ajax({ type: 'get', dataType: 'script', url: '" + this._scriptPath + "', error: function() { alert('Could not load script'); } }); }</script>");
+			this.HiddenLocation = new HtmlInputHidden()
+			{
+				ID = string.Concat("defaultloc_", this.ClientID),
+				Value = string.Concat(this.DefaultLocation, ',', this.DefaultZoom)
+			};
+			this.HiddenLocation.Attributes.Add("class", "defaultloc");
+			this.Controls.Add(this.HiddenLocation);
 		}
 	}
 }

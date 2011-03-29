@@ -9,6 +9,10 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 	/// <summary>
 	/// Extension methods for embedded resources
 	/// </summary>
+	/// <remarks>
+	///	Class taken from uComponents:
+	///	http://ucomponents.codeplex.com/
+	/// </remarks>
 	public static class ResourceExtensions
 	{
 		/// <summary>
