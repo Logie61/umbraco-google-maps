@@ -63,6 +63,7 @@
     <Compile Include="DataTypes\SingleLocation\SingleLocationControl.cs" />
     <Compile Include="DataTypes\SingleLocation\SingleLocationDataType.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
+    <Compile Include="Helpers\Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
