@@ -1,9 +1,9 @@
-if (fergusonmoriyama == undefined) var fergusonmoriyama = {};
-if (!fergusonmoriyama.defaultLocation) { fergusonmoriyama.defaultLocation = ''; }
+if (UmbracoGoogleMap == undefined) var UmbracoGoogleMap = {};
+if (!UmbracoGoogleMap.defaultLocation) { UmbracoGoogleMap.defaultLocation = ''; }
 
-var fergusonMoriyamaMapDataType = null;
+var UmbracoGoogleMapMapDataType = null;
 
-fergusonmoriyama.mapDatatype = function () {
+UmbracoGoogleMap.mapDatatype = function () {
 	this._maps = new Object();
 	this._apiLoaded = false;
 	this._editControlId = 0;
@@ -12,7 +12,7 @@ fergusonmoriyama.mapDatatype = function () {
 	this._renderedTabs = new Object();
 };
 
-fergusonmoriyama.map = function (id, container) {
+UmbracoGoogleMap.map = function (id, container) {
 	this._id = id;
 	this._container = container;
 	this._map = null;
@@ -20,7 +20,7 @@ fergusonmoriyama.map = function (id, container) {
 	this._val = '';
 };
 
-fergusonmoriyama.map.prototype = {
+UmbracoGoogleMap.map.prototype = {
 	draw: function (data) {
 
 		var coords = new google.maps.LatLng(0, 0);
@@ -40,10 +40,6 @@ fergusonmoriyama.map.prototype = {
 			content: 'Loading...'
 		});
 
-
-		// BUG WITH MULTIPLE MARKERS!!! use "bayswater" as example [LK]
-
-
 		for (var i = 0; i < data.length; i++) {
 
 			var result = data[i];
@@ -55,7 +51,7 @@ fergusonmoriyama.map.prototype = {
 				map: this._map,
 				position: result.geometry.location,
 				draggable: true,
-				html: '<span class="fmText">' + name + '<br/><a href="#" onClick="fergusonMoriyamaMapDataType.markerClick(\'' + context._id + '\', ' + context._markers.length + '); return false;">Use this location</a></span>'
+				html: '<span class="fmText">' + name + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + context._id + '\', ' + context._markers.length + '); return false;">Use this location</a></span>'
 			});
 
 			google.maps.event.addListener(marker, 'click', function () {
@@ -69,7 +65,7 @@ fergusonmoriyama.map.prototype = {
 
 			google.maps.event.addListener(marker, 'dragend', function (e) {
 				//this.title = e.latLng.lat() + ', ' + e.latLng.lng();
-				//infowindow.content = '<span class="fmText">' + this.title + '<br/><a href="#" onClick="fergusonMoriyamaMapDataType.markerClick(\'' + context._id + '\', 0); return false;">Use this location</a></span>'
+				//infowindow.content = '<span class="fmText">' + this.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + context._id + '\', 0); return false;">Use this location</a></span>'
 			});
 
 			context._markers[context._markers.length] = marker;
@@ -94,7 +90,7 @@ fergusonmoriyama.map.prototype = {
 	render: function () {
 		var v = jQuery('input.value', this._container).attr('value')
 		var mapId = jQuery('div.map', this._container).attr('id');
-		fergusonmoriyama.defaultLocation = jQuery('input.defaultloc', this._container).attr('value');
+		UmbracoGoogleMap.defaultLocation = jQuery('input.defaultloc', this._container).attr('value');
 
 		var coords = new google.maps.LatLng(0, 0);
 		var zoom = 13;
@@ -103,8 +99,8 @@ fergusonmoriyama.map.prototype = {
 
 		if (v.length == 0) {
 
-			if (fergusonmoriyama.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+,\d+/)) {
-				var loc = fergusonmoriyama.defaultLocation.split(',');
+			if (UmbracoGoogleMap.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+,\d+/)) {
+				var loc = UmbracoGoogleMap.defaultLocation.split(',');
 				loc[0] = parseFloat(loc[0]);
 				loc[1] = parseFloat(loc[1]);
 				loc[2] = parseInt(loc[2]);
@@ -112,8 +108,8 @@ fergusonmoriyama.map.prototype = {
 				coords = new google.maps.LatLng(loc[0], loc[1]);
 				zoom = loc[2];
 
-			} else if (fergusonmoriyama.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+$/)) {
-				var loc = fergusonmoriyama.defaultLocation.split(',');
+			} else if (UmbracoGoogleMap.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+$/)) {
+				var loc = UmbracoGoogleMap.defaultLocation.split(',');
 				loc[0] = parseFloat(loc[0]);
 				loc[1] = parseFloat(loc[1]);
 
@@ -131,12 +127,13 @@ fergusonmoriyama.map.prototype = {
 			pointData[2] = parseInt(pointData[2]);
 
 			coords = new google.maps.LatLng(pointData[0], pointData[1]);
+			zoom = pointData[2];
 
 			var marker = new google.maps.Marker({
 				map: this._map,
 				position: coords,
 				draggable: true,
-				html: '<span class="fmText">' + pointData[0] + ', ' + pointData[1] + '<br/><a href="#" onClick="fergusonMoriyamaMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
+				html: '<span class="fmText">' + pointData[0] + ', ' + pointData[1] + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
 			});
 
 			var infowindow = new google.maps.InfoWindow({
@@ -157,7 +154,7 @@ fergusonmoriyama.map.prototype = {
 
 			google.maps.event.addListener(marker, 'dragend', function (e) {
 				//marker.title = e.latLng.lat() + ', ' + e.latLng.lng();
-				//infowindow.content = '<span class="fmText">' + marker.title + '<br/><a href="#" onClick="fergusonMoriyamaMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
+				//infowindow.content = '<span class="fmText">' + marker.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
 			});
 		}
 
@@ -171,7 +168,7 @@ fergusonmoriyama.map.prototype = {
 	}
 }
 
-fergusonmoriyama.mapDatatype.prototype = {
+UmbracoGoogleMap.mapDatatype.prototype = {
 	markerClick: function (mapId, markerId) {
 		var map = this._maps[mapId];
 		var marker = map._markers[markerId];
@@ -189,7 +186,7 @@ fergusonmoriyama.mapDatatype.prototype = {
 
 	edit: function () {
 		this._apiLoaded = true;
-		this._maps[this._id] = new fergusonmoriyama.map(this._id, this._container);
+		this._maps[this._id] = new UmbracoGoogleMap.map(this._id, this._container);
 
 		this._maps[this._id].render();
 	},
@@ -202,7 +199,7 @@ fergusonmoriyama.mapDatatype.prototype = {
 		if (this._apiLoaded) {
 			this.edit();
 		} else {
-			fergusonmoriyama.loadMapsApi('fergusonMoriyamaMapDataType.edit');
+			UmbracoGoogleMap.loadMapsApi('UmbracoGoogleMapMapDataType.edit');
 		}
 
 	},
@@ -211,7 +208,7 @@ fergusonmoriyama.mapDatatype.prototype = {
 		var context = this;
 		jQuery('div.gmapContainer').each(function () {
 			var id = jQuery('div.map', this).attr('id');
-			context._maps[id] = new fergusonmoriyama.map(id, this);
+			context._maps[id] = new UmbracoGoogleMap.map(id, this);
 			context._maps[id].render();
 		});
 	},
@@ -239,7 +236,7 @@ fergusonmoriyama.mapDatatype.prototype = {
 	}
 };
 
-fergusonmoriyama.loadMapsApi = function (cb) {
+UmbracoGoogleMap.loadMapsApi = function (cb) {
 	jQuery.ajax({
 		type: "get",
 		dataType: "script",
@@ -252,7 +249,7 @@ fergusonmoriyama.loadMapsApi = function (cb) {
 	});
 }
 
-fergusonMoriyamaMapDataType = new fergusonmoriyama.mapDatatype();
+UmbracoGoogleMapMapDataType = new UmbracoGoogleMap.mapDatatype();
 
 if (typeof ItemEditing != 'undefined') {
 	ItemEditing.add_startEdit(function (item) {
@@ -266,14 +263,14 @@ if (typeof ItemEditing != 'undefined') {
 				$(this).blur();
 			});
 			var mapId = jQuery('div.map', container).attr('id');
-			fergusonMoriyamaMapDataType.preEdit(mapId, container);
+			UmbracoGoogleMapMapDataType.preEdit(mapId, container);
 		}
 	});
 } else {
 
 	jQuery(document).ready(function () {
 
-		fergusonmoriyama.loadMapsApi('fergusonMoriyamaMapDataType.guiMap');
+		UmbracoGoogleMap.loadMapsApi('UmbracoGoogleMapMapDataType.guiMap');
 
 		jQuery('input.value').focus(function () {
 			$(this).blur();
@@ -286,17 +283,17 @@ if (typeof ItemEditing != 'undefined') {
 				id = id.replace(/^(.*\_tab\d+).*$/, "$1");
 				id += 'layer';
 
-				if (!fergusonMoriyamaMapDataType._renderedTabs[id]) {
+				if (!UmbracoGoogleMapMapDataType._renderedTabs[id]) {
 					jQuery('#' + id).each(function () {
 						jQuery('div.map', this).each(function () {
 							var id = jQuery(this).attr('id');
-							if (fergusonMoriyamaMapDataType._maps[id]) {
-								fergusonMoriyamaMapDataType._maps[id].render();
+							if (UmbracoGoogleMapMapDataType._maps[id]) {
+								UmbracoGoogleMapMapDataType._maps[id].render();
 							}
 						});
 					});
 
-					fergusonMoriyamaMapDataType._renderedTabs[id] = true;
+					UmbracoGoogleMapMapDataType._renderedTabs[id] = true;
 				}
 			}
 		});

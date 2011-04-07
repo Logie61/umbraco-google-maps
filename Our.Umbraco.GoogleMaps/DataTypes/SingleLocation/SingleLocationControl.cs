@@ -181,7 +181,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			// search button
 			this.SearchButton = new HtmlInputButton() { Value = "Search" };
 			this.SearchButton.Attributes.Add("class", "button");
-			this.SearchButton.Attributes.Add("onclick", "javascript:fergusonMoriyamaMapDataType.search(this); return false;");
+			this.SearchButton.Attributes.Add("onclick", "javascript:UmbracoGoogleMapMapDataType.search(this); return false;");
 			divSearch.Controls.Add(this.SearchButton);
 
 			this.Controls.Add(divSearch);
@@ -197,7 +197,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			// location button
 			this.LocationButton = new HtmlInputButton() { Value = "Clear" };
 			this.LocationButton.Attributes.Add("class", "button");
-			this.LocationButton.Attributes.Add("onclick", "javascript:fergusonMoriyamaMapDataType.clear(this); return false;");
+			this.LocationButton.Attributes.Add("onclick", "javascript:UmbracoGoogleMapMapDataType.clear(this); return false;");
 			divLocation.Controls.Add(this.LocationButton);
 
 			this.Controls.Add(divLocation);
