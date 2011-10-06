@@ -149,6 +149,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.EnsureChildControls();
 		}
 
+        protected override void OnPreRender(EventArgs e) {
+            base.OnPreRender(e);
+
+            this.LocationTextBox.Value = this.Data;
+        }
+
 		/// <summary>
 		/// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
 		/// </summary>

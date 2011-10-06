@@ -62,6 +62,9 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			// assign the initialise event for the control
 			this.m_Control.Init += new EventHandler(this.m_Control_Init);
 
+            // assign the value to the control
+            this.m_Control.PreRender += new EventHandler(this.m_Control_PreRender);
+
 			// assign the save event for the data-type/editor
 			this.DataEditorControl.OnSave += new AbstractDataEditorControl.SaveEventHandler(this.DataEditorControl_OnSave);
 		}
@@ -103,16 +106,25 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.MapHeight = this.MapHeight;
 			this.m_Control.MapWidth = this.MapWidth;
 
-			// set the data value of the control
-			if (this.Data.Value != null)
-			{
-				this.m_Control.Data = this.Data.Value.ToString();
-			}
-			else
-			{
-				this.m_Control.Data = string.Empty;
-			}
+            //// set the data value of the control
+            //if (this.Data.Value != null)
+            //{
+            //    this.m_Control.Data = this.Data.Value.ToString();
+            //}
+            //else
+            //{
+            //    this.m_Control.Data = string.Empty;
+            //}
 		}
+
+        private void m_Control_PreRender(object sender, EventArgs e) {
+            // set the data value of the control
+            if (this.Data.Value != null) {
+                this.m_Control.Data = this.Data.Value.ToString();
+            } else {
+                this.m_Control.Data = string.Empty;
+            }
+        }
 
 		/// <summary>
 		/// Datas the editor control_ on save.
