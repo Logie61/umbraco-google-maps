@@ -167,6 +167,9 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.ID = string.Concat("gmapContainer_", this.ClientID);
 
 			// Adds the client dependencies.
+            // this is causing issues with multiple maps on a single doc type,
+            // i put in a shim for right now that makes sure the google maps api is only loaded once,
+            // but we need to make sure that this script is only added once - SAMANDMOORE
 			this.AddResourceToClientDependency("Our.Umbraco.GoogleMaps.DataTypes.SingleLocation.SingleLocation.js", ClientDependency.Core.ClientDependencyType.Javascript);
 		}
 

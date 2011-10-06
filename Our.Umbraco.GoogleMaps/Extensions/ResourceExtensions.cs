@@ -36,7 +36,7 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 		/// <param name="priority">The priority.</param>
 		public static void AddResourceToClientDependency(this Page page, Type resourceContainer, string resourceName, ClientDependencyType type, int priority)
 		{
-			// get the urls for the embedded resources           
+			// get the urls for the embedded resources     
 			var resourceUrl = page.ClientScript.GetWebResourceUrl(resourceContainer, resourceName);
 
 			Control target = page.Header;
