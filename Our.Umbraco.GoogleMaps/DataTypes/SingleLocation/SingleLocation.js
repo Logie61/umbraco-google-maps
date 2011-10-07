@@ -6,7 +6,6 @@ var UmbracoGoogleMapMapDataType = null;
 UmbracoGoogleMap.mapDatatype = function () {
     this._maps = new Object();
     this._apiLoaded = false;
-    this._apiLoading = false;
     this._editControlId = 0;
     this._id = 0;
     this._container = null;
@@ -207,7 +206,6 @@ UmbracoGoogleMap.mapDatatype.prototype = {
 
     guiMap: function () {
         var context = this;
-        this._apiLoading = false;
         this._apiLoaded = true;
         jQuery('div.gmapContainer').each(function () {
             var id = jQuery('div.map', this).attr('id');
@@ -272,36 +270,32 @@ if (typeof ItemEditing != 'undefined') {
 } else {
 
     jQuery(document).ready(function () {
+        UmbracoGoogleMap.loadMapsApi('UmbracoGoogleMapMapDataType.guiMap');
 
-        if (!UmbracoGoogleMapMapDataType._apiLoading) {
-            UmbracoGoogleMapMapDataType._apiLoading = true;
-            UmbracoGoogleMap.loadMapsApi('UmbracoGoogleMapMapDataType.guiMap');
+        jQuery('input.value').focus(function () {
+            $(this).blur();
+        });
 
-            jQuery('input.value').focus(function () {
-                $(this).blur();
-            });
+        $('a').click(function () {
+            if ($(this).attr('id').indexOf('TabView') > -1) {
 
-            $('a').click(function () {
-                if ($(this).attr('id').indexOf('TabView') > -1) {
+                var id = $(this).attr('id');
+                id = id.replace(/^(.*\_tab\d+).*$/, "$1");
+                id += 'layer';
 
-                    var id = $(this).attr('id');
-                    id = id.replace(/^(.*\_tab\d+).*$/, "$1");
-                    id += 'layer';
-
-                    if (!UmbracoGoogleMapMapDataType._renderedTabs[id]) {
-                        jQuery('#' + id).each(function () {
-                            jQuery('div.map', this).each(function () {
-                                var id = jQuery(this).attr('id');
-                                if (UmbracoGoogleMapMapDataType._maps[id]) {
-                                    UmbracoGoogleMapMapDataType._maps[id].render();
-                                }
-                            });
+                if (!UmbracoGoogleMapMapDataType._renderedTabs[id]) {
+                    jQuery('#' + id).each(function () {
+                        jQuery('div.map', this).each(function () {
+                            var id = jQuery(this).attr('id');
+                            if (UmbracoGoogleMapMapDataType._maps[id]) {
+                                UmbracoGoogleMapMapDataType._maps[id].render();
+                            }
                         });
+                    });
 
-                        UmbracoGoogleMapMapDataType._renderedTabs[id] = true;
-                    }
+                    UmbracoGoogleMapMapDataType._renderedTabs[id] = true;
                 }
-            });
-        }
+            }
+        });
     });
 }

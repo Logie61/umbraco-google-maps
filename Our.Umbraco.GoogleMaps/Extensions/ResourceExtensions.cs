@@ -39,6 +39,8 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 			// get the urls for the embedded resources     
 			var resourceUrl = page.ClientScript.GetWebResourceUrl(resourceContainer, resourceName);
 
+            ClientDependency.Core.Controls.ClientDependencyLoader.Instance.RegisterDependency(priority, page.Server.HtmlEncode(resourceUrl), type);
+            /*
 			Control target = page.Header;
 			// if there's no <head runat="server" /> don't throw an exception.
 			if (target != null)
@@ -59,7 +61,7 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 					default:
 						break;
 				}
-			}
+			}*/
 		}
 	}
 }
