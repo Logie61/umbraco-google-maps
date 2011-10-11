@@ -4,7 +4,7 @@
 	<info>
 		<package>
 			<name>Google Maps for Umbraco</name>
-			<version>2.0</version>
+			<version>2.0.1</version>
 			<license url="http://www.opensource.org/licenses/mit-license.php">MIT license</license>
 			<url>http://our.umbraco.org/projects/backoffice-extensions/google-maps-datatype</url>
 			<requirements>
@@ -26,14 +26,14 @@
 	<DictionaryItems />
 	<Languages />
 	<DataTypes>
-    <DataType Name="Google Map" Id="1b64eae2-f9a1-4276-a071-f25dde6913dd" Definition="f435f50a-988a-417c-9067-4332ad8bfb7d">
-      <PreValues>
-        <PreValue Id="5" Value="53.430785,-2.960515" />
-        <PreValue Id="6" Value="12" />
-        <PreValue Id="7" Value="375" />
-        <PreValue Id="8" Value="459" />
-      </PreValues>
-    </DataType>
-  </DataTypes>
+		<DataType Name="Google Map" Id="1b64eae2-f9a1-4276-a071-f25dde6913dd" Definition="f435f50a-988a-417c-9067-4332ad8bfb7d">
+			<PreValues>
+				<PreValue Id="5" Value="53.430785,-2.960515" />
+				<PreValue Id="6" Value="12" />
+				<PreValue Id="7" Value="375" />
+				<PreValue Id="8" Value="459" />
+			</PreValues>
+		</DataType>
+	</DataTypes>
 	<Actions />
 </umbPackage>
