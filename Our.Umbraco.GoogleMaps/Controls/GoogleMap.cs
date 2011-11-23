@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
 using ClientDependency.Core;
 using Our.Umbraco.GoogleMaps.Extensions;
+using Our.Umbraco.GoogleMaps.Helpers;
 
-[assembly: WebResource("Our.Umbraco.GoogleMaps.Controls.GoogleMap.css", "text/css")]
+[assembly: WebResource(Constants.GoogleMapCss, "text/css")]
 
 namespace Our.Umbraco.GoogleMaps.Controls
 {
@@ -33,12 +32,8 @@ namespace Our.Umbraco.GoogleMaps.Controls
 		{
 			base.OnLoad(e);
 
-			////// set the id for the output/markup
-			//// var clientId = this.Parent != null ? this.Parent.ClientID : this.ClientID;
-			//// this.ID = string.Concat("map_", clientId);
-
 			// Adds the client dependencies.
-			this.AddResourceToClientDependency("Our.Umbraco.GoogleMaps.Controls.GoogleMap.css", ClientDependencyType.Css);
+			this.AddResourceToClientDependency(Constants.GoogleMapCss, ClientDependencyType.Css);
 		}
 	}
 }

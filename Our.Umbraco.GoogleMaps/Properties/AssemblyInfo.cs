@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Our.Umbraco.GoogleMaps")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Our Umbraco")]
+[assembly: AssemblyCompany("The Umbraco Community")]
 [assembly: AssemblyProduct("Our.Umbraco.GoogleMaps")]
-[assembly: AssemblyCopyright("Copyright Our Umbraco 2011")]
+[assembly: AssemblyCopyright("Copyright (c) The Umbraco Community 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,5 +23,5 @@ using System.Runtime.InteropServices;
 // Version information for an assembly consists of the following four values:
 // Major Version, Minor Version, Build Number, Revision
 // You can specify all the values or you can default the Build and Revision Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("2.0.1.0")]
-[assembly: AssemblyFileVersion("2.0.1.0")]
+[assembly: AssemblyVersion("2.0.2.0")]
+[assembly: AssemblyFileVersion("2.0.2.0")]

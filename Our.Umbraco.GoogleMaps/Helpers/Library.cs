@@ -1,8 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.XPath;
-
 using umbraco;
 
 namespace Our.Umbraco.GoogleMaps.Helpers
@@ -10,9 +7,14 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 	[XsltExtension("google.maps")]
 	public class Library
 	{
+		/// <summary>
+		/// Parses the CSV.
+		/// </summary>
+		/// <param name="csv">The CSV.</param>
+		/// <returns>Returns a nodeset of the Google map co-ordinates.</returns>
 		public static XPathNodeIterator ParseCsv(string csv)
 		{
-			var array = csv.Split(',');
+			var array = csv.Split(Constants.Comma);
 			var tag = "<GoogleMap lon='{0}' lat='{1}' zoom='{2}' />";
 			var xml = new XmlDocument();
 			xml.LoadXml(string.Format(tag, array));
@@ -23,14 +25,14 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 		/// Gets the static map.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		/// <returns></returns>
+		/// <returns>Returns an image URL for a static Google map.</returns>
 		public static string GetStaticMap(string value)
 		{
 			if (!string.IsNullOrEmpty(value))
 			{
-				var array = value.Split(',');
-				var lon = (array.Length > 0) ? array[0] : "53.430785";
-				var lat = (array.Length > 1) ? array[1] : "-2.960515";
+				var array = value.Split(Constants.Comma);
+				var lon = (array.Length > 0) ? array[0] : Constants.DefaultLongitude;
+				var lat = (array.Length > 1) ? array[1] : Constants.DefaultLatitude;
 				var zoom = (array.Length > 2) ? int.Parse(array[2]) : 13;
 
 				return GetStaticMap(lon, lat, zoom);
@@ -42,9 +44,9 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 		/// <summary>
 		/// Gets the static map.
 		/// </summary>
-		/// <param name="lon">The lon.</param>
-		/// <param name="lat">The lat.</param>
-		/// <returns></returns>
+		/// <param name="lon">The longitude.</param>
+		/// <param name="lat">The latitude.</param>
+		/// <returns>Returns an image URL for a static Google map.</returns>
 		public static string GetStaticMap(string lon, string lat)
 		{
 			return GetStaticMap(lon, lat, 13, 250, 250);
@@ -53,10 +55,10 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 		/// <summary>
 		/// Gets the static map.
 		/// </summary>
-		/// <param name="lon">The lon.</param>
-		/// <param name="lat">The lat.</param>
+		/// <param name="lon">The longitude.</param>
+		/// <param name="lat">The latitude.</param>
 		/// <param name="zoom">The zoom.</param>
-		/// <returns></returns>
+		/// <returns>Returns an image URL for a static Google map.</returns>
 		public static string GetStaticMap(string lon, string lat, int zoom)
 		{
 			return GetStaticMap(lon, lat, zoom, 250, 250);
@@ -65,12 +67,12 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 		/// <summary>
 		/// Gets the static map.
 		/// </summary>
-		/// <param name="lon">The lon.</param>
-		/// <param name="lat">The lat.</param>
+		/// <param name="lon">The longitude.</param>
+		/// <param name="lat">The latitude.</param>
 		/// <param name="zoom">The zoom.</param>
 		/// <param name="height">The height.</param>
 		/// <param name="width">The width.</param>
-		/// <returns></returns>
+		/// <returns>Returns an image URL for a static Google map.</returns>
 		public static string GetStaticMap(string lon, string lat, int zoom, int height, int width)
 		{
 			return GetStaticMap(lon, lat, zoom, height, width, "roadmap");
@@ -79,13 +81,13 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 		/// <summary>
 		/// Gets the static map.
 		/// </summary>
-		/// <param name="lon">The lon.</param>
-		/// <param name="lat">The lat.</param>
+		/// <param name="lon">The longitude.</param>
+		/// <param name="lat">The latitude.</param>
 		/// <param name="zoom">The zoom.</param>
 		/// <param name="height">The height.</param>
 		/// <param name="width">The width.</param>
 		/// <param name="mapType">Type of the map.</param>
-		/// <returns></returns>
+		/// <returns>Returns an image URL for a static Google map.</returns>
 		public static string GetStaticMap(string lon, string lat, int zoom, int height, int width, string mapType)
 		{
 			switch (mapType.ToUpper())

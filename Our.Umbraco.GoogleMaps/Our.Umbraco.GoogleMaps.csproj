@@ -55,7 +55,7 @@
     <Reference Include="umbraco">
       <HintPath>..\_externals\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls">
+    <Reference Include="umbraco.editorControls, Version=1.0.4090.38080, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\_externals\umbraco.editorControls.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -64,6 +64,7 @@
     <Compile Include="DataTypes\SingleLocation\SingleLocationControl.cs" />
     <Compile Include="DataTypes\SingleLocation\SingleLocationDataType.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,7 +75,6 @@
   <ItemGroup>
     <EmbeddedResource Include="DataTypes\SingleLocation\SingleLocation.js" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

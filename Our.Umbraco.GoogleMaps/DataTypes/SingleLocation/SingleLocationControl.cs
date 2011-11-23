@@ -2,12 +2,12 @@
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
 using ClientDependency.Core;
 using Our.Umbraco.GoogleMaps.Controls;
 using Our.Umbraco.GoogleMaps.Extensions;
+using Our.Umbraco.GoogleMaps.Helpers;
 
-[assembly: WebResource("Our.Umbraco.GoogleMaps.DataTypes.SingleLocation.SingleLocation.js", "application/x-javascript")]
+[assembly: WebResource(Constants.SingleLocationJavaScript, "application/x-javascript")]
 
 namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 {
@@ -49,21 +49,23 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 				{
 					return this.LocationTextBox.Value;
 				}
+
 				if (!string.IsNullOrEmpty(this.CurrentLocation) && !string.IsNullOrEmpty(this.CurrentZoom))
 				{
-					return string.Concat(this.CurrentLocation, ',', this.CurrentZoom);
+					return string.Concat(this.CurrentLocation, Constants.Comma, this.CurrentZoom);
 				}
 
 				return string.Empty;
 			}
+
 			set
 			{
-				var parts = value.Split(',');
+				var parts = value.Split(Constants.Comma);
 
 				// get the location
 				if (parts.Length > 1)
 				{
-					this.CurrentLocation = string.Concat(parts[0], ',', parts[1]);
+					this.CurrentLocation = string.Concat(parts[0], Constants.Comma, parts[1]);
 				}
 
 				// get the zoom
@@ -149,11 +151,16 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.EnsureChildControls();
 		}
 
-        protected override void OnPreRender(EventArgs e) {
-            base.OnPreRender(e);
+		/// <summary>
+		/// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
+		/// </summary>
+		/// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+		protected override void OnPreRender(EventArgs e)
+		{
+			base.OnPreRender(e);
 
-            this.LocationTextBox.Value = this.Data;
-        }
+			this.LocationTextBox.Value = this.Data;
+		}
 
 		/// <summary>
 		/// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
@@ -165,9 +172,9 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 
 			// set the ID of the control
 			this.ID = string.Concat("gmapContainer_", this.ClientID);
-            
+
 			// Adds the client dependencies.
-			this.AddResourceToClientDependency("Our.Umbraco.GoogleMaps.DataTypes.SingleLocation.SingleLocation.js", ClientDependency.Core.ClientDependencyType.Javascript);            
+			this.AddResourceToClientDependency(Constants.SingleLocationJavaScript, ClientDependencyType.Javascript);
 		}
 
 		/// <summary>
@@ -220,7 +227,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.HiddenLocation = new HtmlInputHidden()
 			{
 				ID = string.Concat("defaultloc_", this.ClientID),
-				Value = string.Concat(this.DefaultLocation, ',', this.DefaultZoom)
+				Value = string.Concat(this.DefaultLocation, Constants.Comma, this.DefaultZoom)
 			};
 			this.HiddenLocation.Attributes.Add("class", "defaultloc");
 			this.Controls.Add(this.HiddenLocation);

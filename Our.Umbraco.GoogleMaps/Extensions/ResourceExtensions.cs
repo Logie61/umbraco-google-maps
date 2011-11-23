@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.UI;
-
 using ClientDependency.Core;
+using ClientDependency.Core.Controls;
 using umbraco;
 
 namespace Our.Umbraco.GoogleMaps.Extensions
@@ -23,7 +23,7 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 		/// <param name="type">The type.</param>
 		public static void AddResourceToClientDependency(this Control ctl, string resourceName, ClientDependencyType type)
 		{
-			ctl.Page.AddResourceToClientDependency(typeof(Our.Umbraco.GoogleMaps.Extensions.ResourceExtensions), resourceName, type, 100);
+			ctl.Page.AddResourceToClientDependency(typeof(ResourceExtensions), resourceName, type, 100);
 		}
 
 		/// <summary>
@@ -38,30 +38,7 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 		{
 			// get the urls for the embedded resources     
 			var resourceUrl = page.ClientScript.GetWebResourceUrl(resourceContainer, resourceName);
-
-            ClientDependency.Core.Controls.ClientDependencyLoader.Instance.RegisterDependency(priority, page.Server.HtmlEncode(resourceUrl), type);
-            /*
-			Control target = page.Header;
-			// if there's no <head runat="server" /> don't throw an exception.
-			if (target != null)
-			{
-				// Umbraco v4.5.x shipped with earlier version of ClientDependency - which had an issue with querystrings in virtual paths.
-				switch (type)
-				{
-					case ClientDependencyType.Css:
-						target.Controls.Add(
-							new LiteralControl("<link type='text/css' rel='stylesheet' href='" + page.Server.HtmlEncode(resourceUrl) + "' />"));
-						break;
-
-					case ClientDependencyType.Javascript:
-						target.Controls.Add(
-							new LiteralControl("<script type='text/javascript' src='" + page.Server.HtmlEncode(resourceUrl) + "'></script>"));
-						break;
-
-					default:
-						break;
-				}
-			}*/
+			ClientDependencyLoader.Instance.RegisterDependency(priority, page.Server.HtmlEncode(resourceUrl), type);
 		}
 	}
 }
