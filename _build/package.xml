@@ -4,7 +4,7 @@
 	<info>
 		<package>
 			<name>Google Maps for Umbraco</name>
-			<version>2.0.1</version>
+			<version>2.0.2</version>
 			<license url="http://www.opensource.org/licenses/mit-license.php">MIT license</license>
 			<url>http://our.umbraco.org/projects/backoffice-extensions/google-maps-datatype</url>
 			<requirements>

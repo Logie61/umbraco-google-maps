@@ -7,7 +7,7 @@
 
 	<!-- PROPERTIES -->
 	<PropertyGroup>
-		<PackageVersion>2.0.1</PackageVersion>
+		<PackageVersion>2.0.2</PackageVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
