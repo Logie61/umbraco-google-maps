@@ -277,9 +277,9 @@ if (typeof ItemEditing != 'undefined') {
         });
 
         $('a').click(function () {
-            if ($(this).attr('id').indexOf('TabView') > -1) {
+            var id = $(this).attr('id');
+            if (id && id.indexOf('TabView') > -1) {
 
-                var id = $(this).attr('id');
                 id = id.replace(/^(.*\_tab\d+).*$/, "$1");
                 id += 'layer';
 
