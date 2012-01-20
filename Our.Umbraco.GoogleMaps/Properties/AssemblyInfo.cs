@@ -1,5 +1,4 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following set of attributes.
@@ -9,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Umbraco Community")]
 [assembly: AssemblyProduct("Our.Umbraco.GoogleMaps")]
-[assembly: AssemblyCopyright("Copyright (c) The Umbraco Community 2011")]
+[assembly: AssemblyCopyright("Copyright \xa9 The Umbraco Community 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,10 +17,10 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("57e4aed4-217d-47af-a306-87be990752e2")]
+[assembly: Guid("57E4AED4-217D-47AF-A306-87BE990752E2")]
 
 // Version information for an assembly consists of the following four values:
 // Major Version, Minor Version, Build Number, Revision
 // You can specify all the values or you can default the Build and Revision Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("2.0.2.0")]
-[assembly: AssemblyFileVersion("2.0.2.0")]
+[assembly: AssemblyVersion("2.0.3.*")]
+// [assembly: AssemblyFileVersion("2.0.3.0")]
