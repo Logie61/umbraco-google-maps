@@ -297,5 +297,14 @@ if (typeof ItemEditing != 'undefined') {
                 }
             }
         });
+
+		$('.gmapContainer').find('.place').keydown(function (e) {
+			var keyCode = e.keyCode || e.which;
+			if (keyCode == 13) {
+				e.preventDefault();
+				$(this).parent().find('.button').click();
+				return false;
+			}
+		});
     });
 }
