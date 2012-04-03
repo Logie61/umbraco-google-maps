@@ -2,6 +2,8 @@
 {
 	public class Constants
 	{
+		public const string AppKey_DisableClientDependency = "GoogleMaps:DisableClientDependency";
+
 		public const string GoogleMapCss = "Our.Umbraco.GoogleMaps.Controls.GoogleMap.css";
 
 		public const string GoogleMapJavaScript = "Our.Umbraco.GoogleMaps.Controls.GoogleMap.js";

@@ -1,6 +1,8 @@
 ﻿using System.Xml;
+using System.Linq;
 using System.Xml.XPath;
 using umbraco;
+using System.Web.Configuration;
 
 namespace Our.Umbraco.GoogleMaps.Helpers
 {
@@ -105,6 +107,26 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 
 			string staticMapUrl = "http://maps.google.com/maps/api/staticmap?markers={0},{1}&zoom={2}&size={4}x{3}&maptype={5}&sensor=false";
 			return string.Format(staticMapUrl, lon, lat, zoom, height, width, mapType.ToLower());
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether to [use client dependency].
+		/// </summary>
+		/// <value><c>true</c> if [use client dependency]; otherwise, <c>false</c>.</value>
+		internal static bool UseClientDependency
+		{
+			get
+			{
+				var disabled = false;
+
+				if (WebConfigurationManager.AppSettings.AllKeys.Contains(Constants.AppKey_DisableClientDependency))
+				{
+					var disableClientDependency = WebConfigurationManager.AppSettings[Constants.AppKey_DisableClientDependency] ?? bool.FalseString;
+					bool.TryParse(disableClientDependency, out disabled);
+				}
+
+				return !disabled;
+			}
 		}
 	}
 }
