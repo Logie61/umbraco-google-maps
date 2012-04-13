@@ -1,0 +1,55 @@
+@inherits System.Web.Mvc.WebViewPage<GoogleMaps.PropertyEditor.GoogleMapsEditor>
+@using System.Web.Helpers;
+@using System.Web.Mvc;
+@using System.Web.Mvc.Ajax;
+@using System.Web.Mvc.Html;
+@using System.Web.Routing;
+@using System.Web.WebPages;
+@using Microsoft.Web.Mvc;
+@using ClientDependency.Core;
+@using ClientDependency.Core.Mvc;
+@using GoogleMaps.PropertyEditor
+@using Umbraco.Cms.Web;
+@using Umbraco.Cms.Web.Editors;
+
+@{
+    Html.RequiresJsResource(typeof(GoogleMapsEditor), "GoogleMaps.PropertyEditor.Resources.PropertyEditor.js");
+
+    var propertyId = ViewBag.UmbracoPropertyId;
+    
+    <script type="text/javascript">
+		(function ($) {
+			$(document).ready(function () {
+			    Umbraco.PropertyEditors.GoogleMaps.PropertyEditor.init({
+			            umbracoPropertyId: "@propertyId"
+			        });
+			});
+		})(jQuery);
+    </script>
+}
+
+<div id="@propertyEditorID">
+    <div id="search">
+        @Html.TextBoxFor(x => Model.Postcode, new { @class = "googlePostcode", @placeholder = "Search for a location" })
+        <input type="submit" class="bingSearch" value="Find" />
+    </div>
+
+    <div class="value">
+        @Html.LabelFor(x => Model.Lat)
+        @Html.TextBoxFor(x => Model.Lat, new { @class = "googleLat", @readonly = "readonly" })
+    </div>
+
+    <div class="value">
+    @Html.LabelFor(x => Model.Long)
+    @Html.TextBoxFor(x => Model.Long, new { @class = "googleLong", @readonly = "readonly" })
+    </div>
+
+    <div class="value">
+        @Html.LabelFor(x => Model.ZoomLevel)
+        @Html.TextBoxFor(x => Model.ZoomLevel, new { @class = "googleZoom", @readonly = "readonly" })
+    </div>
+
+    <div id="@mapID" class="bingMap" style="width:@(Model.PreValueModel.initWidth)px; height:@(Model.PreValueModel.initHeight)px; position:relative;">
+        <p>Loading Please Wait...</p>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0D27D623-E088-4739-87FE-86CF5020F67E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GoogleMaps.PropertyEditor</RootNamespace>
+    <AssemblyName>GoogleMaps.PropertyEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Nonshipping>true</Nonshipping>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClientDependency.Core">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\ClientDependency.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientDependency.Core.Mvc">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\ClientDependency.Core.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.0.2.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions.ClientValidation">
+      <HintPath>..\packages\DataAnnotationsExtensions.MVC3.1.0.2.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Dynamic">
+      <HintPath>..\packages\DynamicQuery.1.0\lib\35\Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlDiff">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\HtmlDiff.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\Umbraco.Framework.5.0.1000.0\lib\net40\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Linq">
+      <HintPath>..\packages\Umbraco.Hive.5.0.1000.0\lib\net40\Remotion.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web" />
+    <Reference Include="Umbraco.Cms.Web">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\Umbraco.Cms.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Cms.Web.EmbeddedViewEngine">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\Umbraco.Cms.Web.EmbeddedViewEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Cms.Web.PropertyEditors">
+      <HintPath>..\packages\Umbraco.Cms.Web.PropertyEditors.5.0.1000.0\lib\net40\Umbraco.Cms.Web.PropertyEditors.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Framework">
+      <HintPath>..\packages\Umbraco.Framework.5.0.1000.0\lib\net40\Umbraco.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Framework.Persistence">
+      <HintPath>..\packages\Umbraco.Framework.Persistence.5.0.1000.0\lib\net40\Umbraco.Framework.Persistence.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Framework.Security">
+      <HintPath>..\packages\Umbraco.Framework.Security.5.0.1000.0\lib\net40\Umbraco.Framework.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Umbraco.Hive">
+      <HintPath>..\packages\Umbraco.Hive.5.0.1000.0\lib\net40\Umbraco.Hive.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.2.0.0\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
+    <Compile Include="GoogleMapsEditor.cs" />
+    <Compile Include="GoogleMapsModel.cs" />
+    <Compile Include="GoogleMapsPreValueModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Editor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PropertyEditor.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Web.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
