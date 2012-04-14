@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace GoogleMaps.PropertyEditor
 {
-    [EmbeddedView("GoogleMaps.PropertyEditor.Views.Editor.cshtml", "GoogleMaps.PropetyEditor")]
+    [EmbeddedView("GoogleMaps.PropertyEditor.Views.Editor.cshtml", "GoogleMaps.PropertyEditor")]
     public class GoogleMapsModel : EditorModel<GoogleMapsPreValueModel>
     {
         public GoogleMapsModel(GoogleMapsPreValueModel preValues)
@@ -15,9 +15,9 @@ namespace GoogleMaps.PropertyEditor
         {
             //Use prevalues as the default values until it's saved
             //Tip from Shannon's CG11 Plugin talk...
-            Lat = preValues.initLat;
-            Long = preValues.initLong;
-            ZoomLevel = preValues.initZoomLevel;
+            Lat         = preValues.initLat;
+            Long        = preValues.initLong;
+            ZoomLevel   = preValues.initZoomLevel;
         }
 
         public string Postcode { get; set; }

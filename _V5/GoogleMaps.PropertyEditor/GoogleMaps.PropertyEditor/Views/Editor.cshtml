@@ -1,4 +1,4 @@
-@inherits System.Web.Mvc.WebViewPage<GoogleMaps.PropertyEditor.GoogleMapsEditor>
+@inherits System.Web.Mvc.WebViewPage<GoogleMaps.PropertyEditor.GoogleMapsModel>
 @using System.Web.Helpers;
 @using System.Web.Mvc;
 @using System.Web.Mvc.Ajax;
@@ -13,25 +13,41 @@
 @using Umbraco.Cms.Web.Editors;
 
 @{
-    Html.RequiresJsResource(typeof(GoogleMapsEditor), "GoogleMaps.PropertyEditor.Resources.PropertyEditor.js");
+    var uniqueID            = Guid.NewGuid().ToString();
+    var propertyEditorID    = "googlePropertyEditor-" + uniqueID;
+    var mapID               = "googleMap-" + uniqueID;
+}
 
-    var propertyId = ViewBag.UmbracoPropertyId;
-    
-    <script type="text/javascript">
-		(function ($) {
-			$(document).ready(function () {
-			    Umbraco.PropertyEditors.GoogleMaps.PropertyEditor.init({
-			            umbracoPropertyId: "@propertyId"
-			        });
-			});
-		})(jQuery);
-    </script>
+<!-- Google Maps API -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=@(Model.PreValueModel.apiKey)&sensor=false"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $($("#tabs").umbracoTabsApi()).bind("tabChanged.umbracoTabs", function (e, args) {
+            //Call the plugin
+            $('#@propertyEditorID').umbracoGoogleMap({
+                googleMap: '#@mapID'
+            });
+        });
+
+        //Call the plugin
+        $('#@propertyEditorID').umbracoGoogleMap({
+            googleMap: '#@mapID'
+        });
+    });
+</script>
+
+@{ 
+Html
+.RequiresJsResource(typeof(GoogleMapsEditor), "GoogleMaps.PropertyEditor.Resources.PropertyEditor.js")
+.RequiresCssResource(typeof(GoogleMapsEditor), "GoogleMaps.PropertyEditor.Resources.GoogleMap.css");
 }
 
 <div id="@propertyEditorID">
     <div id="search">
         @Html.TextBoxFor(x => Model.Postcode, new { @class = "googlePostcode", @placeholder = "Search for a location" })
-        <input type="submit" class="bingSearch" value="Find" />
+        <input type="submit" class="googleSearch" value="Find" />
     </div>
 
     <div class="value">

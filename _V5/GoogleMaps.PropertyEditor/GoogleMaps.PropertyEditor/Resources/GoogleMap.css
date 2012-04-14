@@ -1,0 +1,11 @@
+﻿/*jQuery AutoComplete */
+.ui-autocomplete { background-color: white; width: 300px; border: 1px solid #cfcfcf; list-style-type: none; padding-left: 0px; font-family: Arial, Helvetica, sans-serif; cursor: pointer; font-size: 12px; }
+.ui-menu-item { padding: 4px 0; }
+
+/*Input fields*/
+#search { padding:0 0 0 80px; margin:0 0 10px 0; }
+.value label { float:left; width:80px; }
+.value input { color:#a9a9a9 !important; line-height:24px; width: 250px !important; }
+
+/*Map */
+.googleMap { border: 1px #ccc solid; }
