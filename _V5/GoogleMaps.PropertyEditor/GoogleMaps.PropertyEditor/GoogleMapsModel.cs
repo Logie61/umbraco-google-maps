@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Umbraco.Cms.Web.EmbeddedViewEngine;
 using Umbraco.Cms.Web.Model.BackOffice.PropertyEditors;
 using System.Web.Mvc;
+using DataAnnotationsExtensions;
 
 namespace GoogleMaps.PropertyEditor
 {
@@ -23,10 +24,12 @@ namespace GoogleMaps.PropertyEditor
         public string Postcode { get; set; }
 
         [Required(ErrorMessage = "Please set the location latitude")]
-        public decimal Lat { get; set; }
+        [RegularExpression("[-]?[0-9]*[.]{0,1}[0-9]*", ErrorMessage = "Please provide the longtitude as a decimal")]
+        public string Lat { get; set; }
 
         [Required(ErrorMessage = "Please set the location longtitude")]
-        public decimal Long { get; set; }
+        [RegularExpression("[-]?[0-9]*[.]{0,1}[0-9]*", ErrorMessage = "Please provide the longtitude as a decimal")]
+        public string Long { get; set; }
 
         [Range(1, 20, ErrorMessage = "Please set a zoom level between 1 and 20")]
         [Required(ErrorMessage = "Please set a zoom level")]

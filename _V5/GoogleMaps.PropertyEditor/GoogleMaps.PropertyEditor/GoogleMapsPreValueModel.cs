@@ -21,13 +21,15 @@ namespace GoogleMaps.PropertyEditor
 
         [AllowDocumentTypePropertyOverride]
         [Required(ErrorMessage = "Please set the initial latitude")]
+        [RegularExpression("[-]?[0-9]*[.]{0,1}[0-9]*", ErrorMessage = "Please provide the longtitude as a decimal")]
         [DisplayName("Initial Latitude")]
-        public decimal initLat { get; set; }
+        public string initLat { get; set; }
 
         [AllowDocumentTypePropertyOverride]
         [Required(ErrorMessage = "Please set the initial longtitude")]
+        [RegularExpression("[-]?[0-9]*[.]{0,1}[0-9]*", ErrorMessage = "Please provide the longtitude as a decimal")]
         [DisplayName("Initial Longtitude")]
-        public decimal initLong { get; set; }
+        public string initLong { get; set; }
 
         [AllowDocumentTypePropertyOverride]
         [Required(ErrorMessage = "Please set the initial width")]
