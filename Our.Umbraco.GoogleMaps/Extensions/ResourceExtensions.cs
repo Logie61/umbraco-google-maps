@@ -47,7 +47,7 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 			}
 			else
 			{
-				// get the urls for the embedded resources           
+				// get the urls for the embedded resources
 				var target = page.Header;
 
 				// if there's no <head runat="server" /> don't throw an exception.
