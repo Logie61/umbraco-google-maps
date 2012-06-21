@@ -14,6 +14,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 	/// <summary>
 	/// A control for a Google Map to store a single location.
 	/// </summary>
+	[ValidationProperty("Data")]
 	public class SingleLocationControl : WebControl
 	{
 		/// <summary>
