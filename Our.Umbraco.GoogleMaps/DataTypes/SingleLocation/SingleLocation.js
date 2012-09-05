@@ -241,7 +241,7 @@ UmbracoGoogleMap.loadMapsApi = function (cb) {
 	jQuery.ajax({
 		type: "get",
 		dataType: "script",
-		url: 'http://maps.google.com/maps/api/js',
+		url: '//maps.google.com/maps/api/js',
 		data: {
 			v: "3.8",
 			sensor: false,
