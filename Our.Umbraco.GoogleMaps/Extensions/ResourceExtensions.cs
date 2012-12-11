@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.UI;
 using ClientDependency.Core;
-using ClientDependency.Core.Controls;
-using umbraco;
 using Our.Umbraco.GoogleMaps.Helpers;
+using umbraco;
+using umbraco.uicontrols;
 
 namespace Our.Umbraco.GoogleMaps.Extensions
 {
@@ -37,13 +37,18 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 		/// <param name="priority">The priority.</param>
 		public static void AddResourceToClientDependency(this Page page, Type resourceContainer, string resourceName, ClientDependencyType type, int priority)
 		{
-			// // get the urls for the embedded resources     
+			// get the urls for the embedded resources
 			var resourceUrl = page.ClientScript.GetWebResourceUrl(resourceContainer, resourceName);
 
 			// check if they want to use ClientDependency
 			if (Library.UseClientDependency)
 			{
-				ClientDependencyLoader.Instance.RegisterDependency(priority, page.Server.HtmlEncode(resourceUrl), type);
+				bool created;
+				var loader = UmbracoClientDependencyLoader.TryCreate(page, out created);
+				if (loader != null)
+				{
+					loader.RegisterDependency(priority, page.Server.HtmlEncode(resourceUrl), type);
+				}
 			}
 			else
 			{
@@ -57,11 +62,11 @@ namespace Our.Umbraco.GoogleMaps.Extensions
 					switch (type)
 					{
 						case ClientDependencyType.Css:
-							target.Controls.Add(new LiteralControl("<link type='text/css' rel='stylesheet' href='" + page.Server.HtmlEncode(resourceUrl) + "' />"));
+							target.Controls.Add(new LiteralControl(string.Format("<link type=\"text/css\" rel=\"stylesheet\" href=\"{0}\" />", page.Server.HtmlEncode(resourceUrl))));
 							break;
 
 						case ClientDependencyType.Javascript:
-							target.Controls.Add(new LiteralControl("<script type='text/javascript' src='" + page.Server.HtmlEncode(resourceUrl) + "'></script>"));
+							target.Controls.Add(new LiteralControl(string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>", page.Server.HtmlEncode(resourceUrl))));
 							break;
 
 						default:
