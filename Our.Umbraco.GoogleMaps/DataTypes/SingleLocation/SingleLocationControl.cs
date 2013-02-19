@@ -94,6 +94,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		public string DefaultZoom { get; set; }
 
 		/// <summary>
+		/// Gets or sets the whether to use only one point or multiple.
+		/// </summary>
+		/// <value>A boolean which indicates whether one map point or multiple will be used.</value>
+		public string UseOnlyOneMapPoint { get; set; }
+
+		/// <summary>
 		/// Gets or sets the google map.
 		/// </summary>
 		/// <value>The google map.</value>
@@ -104,6 +110,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// </summary>
 		/// <value>The hidden location.</value>
 		public HtmlInputHidden HiddenLocation { get; set; }
+
+		/// <summary>
+		/// Gets or sets the whether to use only one point or multiple.
+		/// </summary>
+		/// <value>True or false depending on whether only one map point or multiple will be used.</value>
+		public HtmlInputHidden HiddenUseOnlyOnePoint { get; set; }
 
 		/// <summary>
 		/// Gets or sets the location text box.
@@ -209,7 +221,8 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			divLocation.Controls.Add(this.LocationTextBox);
 
 			// location button
-			this.LocationButton = new HtmlInputButton() { Value = "Clear" };
+			string locationButtonText = this.UseOnlyOneMapPoint.ToLower() == "true" ? "Reset" : "Clear";
+			this.LocationButton = new HtmlInputButton() { Value = locationButtonText };
 			this.LocationButton.Attributes.Add("class", "button");
 			this.LocationButton.Attributes.Add("onclick", "javascript:UmbracoGoogleMapMapDataType.clear(this); return false;");
 			divLocation.Controls.Add(this.LocationButton);
@@ -232,6 +245,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			};
 			this.HiddenLocation.Attributes.Add("class", "defaultloc");
 			this.Controls.Add(this.HiddenLocation);
+
+			this.HiddenUseOnlyOnePoint = new HtmlInputHidden()
+			{
+				ID = string.Concat("useOnlyOnePoint_", this.ClientID),
+				Value = this.UseOnlyOneMapPoint.ToLower()
+			};
+			this.HiddenUseOnlyOnePoint.Attributes.Add("class", "useOnlyOnePoint");
+			this.Controls.Add(this.HiddenUseOnlyOnePoint);
 		}
 	}
 }

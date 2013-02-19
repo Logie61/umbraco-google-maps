@@ -58,7 +58,7 @@
     <Reference Include="umbraco">
       <HintPath>..\_externals\umbraco.dll</HintPath>
     </Reference>
-    <Reference Include="umbraco.editorControls, Version=1.0.4090.38080, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="umbraco.editorControls, Version=1.0.4090.38024, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\_externals\umbraco.editorControls.dll</HintPath>
     </Reference>
   </ItemGroup>

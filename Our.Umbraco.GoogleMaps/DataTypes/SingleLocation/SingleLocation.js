@@ -1,5 +1,6 @@
 if (UmbracoGoogleMap == undefined) var UmbracoGoogleMap = {};
 if (!UmbracoGoogleMap.defaultLocation) { UmbracoGoogleMap.defaultLocation = ''; }
+if (!UmbracoGoogleMap.useOnlyOnePoint) { UmbracoGoogleMap.useOnlyOnePoint = false; }
 
 var UmbracoGoogleMapMapDataType = null;
 
@@ -23,6 +24,8 @@ UmbracoGoogleMap.map = function (id, container) {
 UmbracoGoogleMap.map.prototype = {
 	draw: function (data) {
 
+		var self = this;
+
 		var coords = new google.maps.LatLng(0, 0);
 		var options = {
 			zoom: 8,
@@ -40,7 +43,9 @@ UmbracoGoogleMap.map.prototype = {
 			content: 'Loading...'
 		});
 
-		for (var i = 0; i < data.length; i++) {
+		var limit = UmbracoGoogleMap.useOnlyOnePoint ? 1 : data.length;
+
+		for (var i = 0; i < limit; i++) {
 
 			var result = data[i];
 
@@ -54,19 +59,30 @@ UmbracoGoogleMap.map.prototype = {
 				html: '<span class="fmText">' + name + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + context._id + '\', ' + context._markers.length + '); return false;">Use this location</a></span>'
 			});
 
-			google.maps.event.addListener(marker, 'click', function () {
-				infowindow.setContent(this.html);
-				infowindow.open(context._map, this);
-			});
+			if (UmbracoGoogleMap.useOnlyOnePoint) {
 
-			google.maps.event.addListener(marker, 'drag', function () {
-				infowindow.close();
-			});
+				google.maps.event.addListener(marker, 'dragend', function (e) {
+					UmbracoGoogleMapMapDataType.setMarker(self, marker);
+				});
 
-			google.maps.event.addListener(marker, 'dragend', function (e) {
-				//this.title = e.latLng.lat() + ', ' + e.latLng.lng();
-				//infowindow.content = '<span class="fmText">' + this.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + context._id + '\', 0); return false;">Use this location</a></span>'
-			});
+				UmbracoGoogleMapMapDataType.setMarker(self, marker);
+
+			} else {
+
+				google.maps.event.addListener(marker, 'click', function () {
+					infowindow.setContent(this.html);
+					infowindow.open(context._map, this);
+				});
+
+				google.maps.event.addListener(marker, 'drag', function () {
+					infowindow.close();
+				});
+
+				google.maps.event.addListener(marker, 'dragend', function (e) {
+					//this.title = e.latLng.lat() + ', ' + e.latLng.lng();
+					//infowindow.content = '<span class="fmText">' + this.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + context._id + '\', 0); return false;">Use this location</a></span>'
+				});
+			}
 
 			context._markers[context._markers.length] = marker;
 		}
@@ -88,12 +104,16 @@ UmbracoGoogleMap.map.prototype = {
 	},
 
 	render: function () {
+		var self = this;
 		var v = jQuery('input.value', this._container).attr('value')
 		var mapId = jQuery('div.map', this._container).attr('id');
 		UmbracoGoogleMap.defaultLocation = jQuery('input.defaultloc', this._container).attr('value');
+		UmbracoGoogleMap.useOnlyOnePoint = jQuery('input.useOnlyOnePoint', this._container).attr('value') == 'true' ? true : false;
 
 		var coords = new google.maps.LatLng(0, 0);
 		var zoom = 13;
+		var lat = 37.4419;
+		var lon = -122.1419;
 
 		this._map = new google.maps.Map(document.getElementById(this._id));
 
@@ -101,61 +121,71 @@ UmbracoGoogleMap.map.prototype = {
 
 			if (UmbracoGoogleMap.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+,\d+/)) {
 				var loc = UmbracoGoogleMap.defaultLocation.split(',');
-				loc[0] = parseFloat(loc[0]);
-				loc[1] = parseFloat(loc[1]);
-				loc[2] = parseInt(loc[2]);
-
-				coords = new google.maps.LatLng(loc[0], loc[1]);
-				zoom = loc[2];
-
+				lat = parseFloat(loc[0]);
+				lon = parseFloat(loc[1]);
+				zoom = parseInt(loc[2]);
 			} else if (UmbracoGoogleMap.defaultLocation.match(/^\-*[\d\.]+,\-*[\d\.]+$/)) {
 				var loc = UmbracoGoogleMap.defaultLocation.split(',');
-				loc[0] = parseFloat(loc[0]);
-				loc[1] = parseFloat(loc[1]);
-
-				coords = new google.maps.LatLng(loc[0], loc[1]);
-			} else {
-				coords = new google.maps.LatLng(37.4419, -122.1419);
+				lat = parseFloat(loc[0]);
+				lon = parseFloat(loc[1]);
 			}
 
+			coords = new google.maps.LatLng(lat, lon);
+			
 		} else {
 
 			var pointData = v.split(',');
 
-			pointData[0] = parseFloat(pointData[0]);
-			pointData[1] = parseFloat(pointData[1]);
-			pointData[2] = parseInt(pointData[2]);
+			lat = parseFloat(pointData[0]);
+			lon = parseFloat(pointData[1]);
+			zoom = parseInt(pointData[2]);
 
-			coords = new google.maps.LatLng(pointData[0], pointData[1]);
-			zoom = pointData[2];
+			coords = new google.maps.LatLng(lat, lon);
 
+			if (!UmbracoGoogleMap.useOnlyOnePoint) {
+				var marker = new google.maps.Marker({
+					map: this._map,
+					position: coords,
+					draggable: true,
+					html: '<span class="fmText">' + lat + ', ' + lon + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
+				});
+
+				var infowindow = new google.maps.InfoWindow({
+					content: 'Loading...'
+				});
+
+				this._markers[0] = marker;
+
+				var map2 = this._map;
+				google.maps.event.addListener(marker, 'click', function () {
+					infowindow.setContent(this.html);
+					infowindow.open(map2, this);
+				});
+
+				google.maps.event.addListener(marker, 'drag', function () {
+					infowindow.close();
+				});
+
+				google.maps.event.addListener(marker, 'dragend', function (e) {
+					//marker.title = e.latLng.lat() + ', ' + e.latLng.lng();
+					//infowindow.content = '<span class="fmText">' + marker.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
+				});
+			}
+		}
+
+		if (UmbracoGoogleMap.useOnlyOnePoint) {
 			var marker = new google.maps.Marker({
 				map: this._map,
 				position: coords,
 				draggable: true,
-				html: '<span class="fmText">' + pointData[0] + ', ' + pointData[1] + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
-			});
-
-			var infowindow = new google.maps.InfoWindow({
-				content: 'Loading...'
-			});
-
-			this._markers[0] = marker;
-
-			var map2 = this._map;
-			google.maps.event.addListener(marker, 'click', function () {
-				infowindow.setContent(this.html);
-				infowindow.open(map2, this);
-			});
-
-			google.maps.event.addListener(marker, 'drag', function () {
-				infowindow.close();
 			});
 
 			google.maps.event.addListener(marker, 'dragend', function (e) {
-				//marker.title = e.latLng.lat() + ', ' + e.latLng.lng();
-				//infowindow.content = '<span class="fmText">' + marker.title + '<br/><a href="#" onClick="UmbracoGoogleMapMapDataType.markerClick(\'' + this._id + '\', 0); return false;">Use this location</a></span>'
+				UmbracoGoogleMapMapDataType.setMarker(self, marker);
 			});
+
+			this._markers[0] = marker;
+			UmbracoGoogleMapMapDataType.setMarker(self, marker);
 		}
 
 		var options = {
@@ -169,19 +199,23 @@ UmbracoGoogleMap.map.prototype = {
 }
 
 UmbracoGoogleMap.mapDatatype.prototype = {
-	markerClick: function (mapId, markerId) {
-		var map = this._maps[mapId];
-		var marker = map._markers[markerId];
-
+	setMarker: function (map, marker) {
 		var z = map._map.getZoom();
 		var l = marker.getPosition();
 		var lat = l.lat();
 		var lon = l.lng();
-		var val = lat + ',' + lon + ',' + z;
+		var val = lat + ',' + lon + (z ? ',' + z : '');
 		map._val = val;
 
 		jQuery("input.value", map._container).attr('value', val);
 		map._val = val;
+	},
+
+	markerClick: function (mapId, markerId) {
+		var map = this._maps[mapId];
+		var marker = map._markers[markerId];
+
+		this.setMarker(map, marker);
 	},
 
 	edit: function () {
@@ -215,8 +249,15 @@ UmbracoGoogleMap.mapDatatype.prototype = {
 	},
 
 	clear: function (button) {
-		var container = button.parentNode;
+	    var container = button.parentNode.parentNode;
 		jQuery('input.value', container).val('');
+
+		if (UmbracoGoogleMap.useOnlyOnePoint) {
+		    var id = container.id;
+		    var mapId = jQuery('div.map', container).attr('id');
+		    var map = this._maps[mapId];
+		    map.render();
+		}
 	},
 
 	search: function (button) {

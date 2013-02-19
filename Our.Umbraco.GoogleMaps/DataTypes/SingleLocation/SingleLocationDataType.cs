@@ -86,6 +86,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		public string MapWidth { get; set; }
 
 		/// <summary>
+		/// Gets or sets whether to use only one map point or multiple.
+		/// </summary>
+		/// <value>A boolean indicating whether or not only one map point or multiple will be used.</value>
+		[DataEditorSetting("Use Only One Map Point", type = typeof(umbraco.editorControls.SettingControls.CheckBox))]
+		public string UseOnlyOneMapPoint { get; set; }
+		//public bool UseOnlyOneMapPoint { get; set; }
+
+		/// <summary>
 		/// Handles the Init event of the m_Control control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -97,6 +105,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.DefaultZoom = this.DefaultZoom;
 			this.m_Control.MapHeight = this.MapHeight;
 			this.m_Control.MapWidth = this.MapWidth;
+			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint;
 		}
 
 		/// <summary>
