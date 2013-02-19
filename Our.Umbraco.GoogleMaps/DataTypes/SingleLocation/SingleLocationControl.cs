@@ -94,6 +94,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		public string DefaultZoom { get; set; }
 
 		/// <summary>
+		/// Gets or sets search filter.
+		/// </summary>
+		/// <value>The search filter.</value>
+		public string SearchFilter { get; set; }
+
+		/// <summary>
 		/// Gets or sets the whether to use only one point or multiple.
 		/// </summary>
 		/// <value>A boolean which indicates whether one map point or multiple will be used.</value>
@@ -110,6 +116,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// </summary>
 		/// <value>The hidden location.</value>
 		public HtmlInputHidden HiddenLocation { get; set; }
+
+		/// <summary>
+		/// Gets or sets the hidden search filter.
+		/// </summary>
+		/// <value>The hidden search filter.</value>
+		public HtmlInputHidden HiddenSearchFilter { get; set; }
 
 		/// <summary>
 		/// Gets or sets the whether to use only one point or multiple.
@@ -245,6 +257,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			};
 			this.HiddenLocation.Attributes.Add("class", "defaultloc");
 			this.Controls.Add(this.HiddenLocation);
+
+			this.HiddenSearchFilter = new HtmlInputHidden()
+			{
+				ID = string.Concat("searchFilter_", this.ClientID),
+				Value = this.SearchFilter
+			};
+			this.HiddenSearchFilter.Attributes.Add("class", "searchFilter");
+			this.Controls.Add(this.HiddenSearchFilter);
 
 			this.HiddenUseOnlyOnePoint = new HtmlInputHidden()
 			{

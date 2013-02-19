@@ -86,6 +86,13 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		public string MapWidth { get; set; }
 
 		/// <summary>
+		/// Gets or sets the search filter.
+		/// </summary>
+		/// <value>the filter of the search.</value>
+		[DataEditorSetting("Search Filter", type = typeof(umbraco.editorControls.SettingControls.TextField))]
+		public string SearchFilter { get; set; }
+
+		/// <summary>
 		/// Gets or sets whether to use only one map point or multiple.
 		/// </summary>
 		/// <value>A boolean indicating whether or not only one map point or multiple will be used.</value>
@@ -105,6 +112,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.DefaultZoom = this.DefaultZoom;
 			this.m_Control.MapHeight = this.MapHeight;
 			this.m_Control.MapWidth = this.MapWidth;
+			this.m_Control.SearchFilter = this.SearchFilter;
 			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint;
 		}
 

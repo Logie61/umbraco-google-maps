@@ -1,5 +1,6 @@
 if (UmbracoGoogleMap == undefined) var UmbracoGoogleMap = {};
 if (!UmbracoGoogleMap.defaultLocation) { UmbracoGoogleMap.defaultLocation = ''; }
+if (!UmbracoGoogleMap.searchFilter) { UmbracoGoogleMap.searchFilter = ''; }
 if (!UmbracoGoogleMap.useOnlyOnePoint) { UmbracoGoogleMap.useOnlyOnePoint = false; }
 
 var UmbracoGoogleMapMapDataType = null;
@@ -108,6 +109,7 @@ UmbracoGoogleMap.map.prototype = {
 		var v = jQuery('input.value', this._container).attr('value')
 		var mapId = jQuery('div.map', this._container).attr('id');
 		UmbracoGoogleMap.defaultLocation = jQuery('input.defaultloc', this._container).attr('value');
+		UmbracoGoogleMap.searchFilter = jQuery('input.searchFilter', this._container).attr('value');
 		UmbracoGoogleMap.useOnlyOnePoint = jQuery('input.useOnlyOnePoint', this._container).attr('value') == 'true' ? true : false;
 
 		var coords = new google.maps.LatLng(0, 0);
@@ -263,7 +265,7 @@ UmbracoGoogleMap.mapDatatype.prototype = {
 	search: function (button) {
 		var container = button.parentNode.parentNode;
 		var id = container.id;
-		var searchTerm = jQuery('input.place', container).val();
+		var searchTerm = jQuery('input.place', container).val() + ' ' + UmbracoGoogleMap.searchFilter;
 		var mapId = jQuery('div.map', container).attr('id');
 		var map = this._maps[mapId];
 
