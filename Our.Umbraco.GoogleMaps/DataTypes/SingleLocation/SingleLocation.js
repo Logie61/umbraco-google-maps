@@ -28,8 +28,9 @@ UmbracoGoogleMap.map.prototype = {
 		var self = this;
 
 		var coords = new google.maps.LatLng(0, 0);
+		var zoom = 13;
 		var options = {
-			zoom: 8,
+			zoom: zoom,
 			center: coords,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		}
@@ -99,8 +100,8 @@ UmbracoGoogleMap.map.prototype = {
 		//  Fit these bounds to the map
 		this._map.fitBounds(bounds);
 
-		if (this._map.getZoom() > 13) {
-			this._map.setZoom(13);
+		if (this._map.getZoom() > zoom) {
+			this._map.setZoom(zoom);
 		}
 	},
 
