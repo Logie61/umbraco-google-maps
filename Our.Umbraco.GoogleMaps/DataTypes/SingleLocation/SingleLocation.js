@@ -66,7 +66,7 @@ UmbracoGoogleMap.map.prototype = {
 					UmbracoGoogleMapMapDataType.setMarker(self, marker);
 				});
 
-				UmbracoGoogleMapMapDataType.setMarker(self, marker);
+				UmbracoGoogleMapMapDataType.setMarker(self, marker, zoom);
 
 			} else {
 
@@ -187,7 +187,7 @@ UmbracoGoogleMap.map.prototype = {
 			});
 
 			this._markers[0] = marker;
-			UmbracoGoogleMapMapDataType.setMarker(self, marker);
+			UmbracoGoogleMapMapDataType.setMarker(self, marker, zoom);
 		}
 
 		var options = {
@@ -201,13 +201,12 @@ UmbracoGoogleMap.map.prototype = {
 }
 
 UmbracoGoogleMap.mapDatatype.prototype = {
-	setMarker: function (map, marker) {
-		var z = map._map.getZoom();
+	setMarker: function (map, marker, zoom) {
+	    var z = zoom ? zoom : map._map.getZoom();
 		var l = marker.getPosition();
 		var lat = l.lat();
 		var lon = l.lng();
 		var val = lat + ',' + lon + (z ? ',' + z : '');
-		map._val = val;
 
 		jQuery("input.value", map._container).attr('value', val);
 		map._val = val;
