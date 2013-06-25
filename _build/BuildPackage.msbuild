@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<VersionMajor>2</VersionMajor>
 		<VersionMinor>0</VersionMinor>
-		<VersionPatch>7</VersionPatch>
+		<VersionPatch>8</VersionPatch>
 		<VersionSuffix>-dev</VersionSuffix>
 	</PropertyGroup>
 
