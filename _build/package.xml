@@ -32,6 +32,8 @@
 				<PreValue Id="6" Value="12" />
 				<PreValue Id="7" Value="375" />
 				<PreValue Id="8" Value="459" />
+        <PreValue Id="9" Value="" />
+        <PreValue Id="10" Value="False" />
 			</PreValues>
 		</DataType>
 	</DataTypes>
