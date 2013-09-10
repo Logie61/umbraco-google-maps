@@ -141,13 +141,18 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.Data.Value = this.m_Control.Data;
 		}
 
-        /// <summary>
-        /// Handles the Init method of the DataEditorControl.
-        /// </summary>
-        private void DataEditorControl_Init(object sender, EventArgs e)
-        {
-            FixPrevalueSettings();
-        }
+		/// <summary>
+		/// Handles the Init method of the DataEditorControl.
+		/// </summary>
+		private void DataEditorControl_Init(object sender, EventArgs e)
+		{
+			// TODO: [LK] We should move this to a custom PackageAction, as it is due to a bug in the Umbraco core.
+			// See here for more details: http://issues.umbraco.org/issue/U4-2833
+			// The package manifest does not contain the appropriate data to successfully install the `DataEditorSetting` prevalues.
+			// Ultimately this need to be fixed in the core.
+			// In the meantime, we can include a PackageAction to rectify the issue - so that it is only executed once, not every init (of this control).
+			this.FixPrevalueSettings();
+		}
 
 		/// <summary>
 		/// Adds an alias the prevalue settings that are stored in the database.
