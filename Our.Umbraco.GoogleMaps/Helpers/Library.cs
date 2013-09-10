@@ -105,7 +105,7 @@ namespace Our.Umbraco.GoogleMaps.Helpers
 					break;
 			}
 
-			string staticMapUrl = "http://maps.google.com/maps/api/staticmap?markers={0},{1}&zoom={2}&size={4}x{3}&maptype={5}&sensor=false";
+			var staticMapUrl = "http://maps.google.com/maps/api/staticmap?markers={0},{1}&zoom={2}&size={4}x{3}&maptype={5}&sensor=false";
 			return string.Format(staticMapUrl, lon, lat, zoom, height, width, mapType.ToLower());
 		}
 

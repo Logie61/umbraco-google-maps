@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Umbraco Community")]
 [assembly: AssemblyProduct("Our.Umbraco.GoogleMaps")]
-[assembly: AssemblyCopyright("Copyright \xa9 The Umbraco Community 2012")]
+[assembly: AssemblyCopyright("Copyright \xa9 The Umbraco Community 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

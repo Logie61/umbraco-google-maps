@@ -31,10 +31,11 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			// assign the value to the control
 			this.m_Control.PreRender += new EventHandler(this.m_Control_PreRender);
 
-			// assign the save event for the data-type/editor
-			this.DataEditorControl.OnSave += new AbstractDataEditorControl.SaveEventHandler(this.DataEditorControl_OnSave);
+			// assign the init event for the data-type/editor
+			this.DataEditorControl.Init += this.DataEditorControl_Init;
 
-            this.DataEditorControl.Init += new EventHandler(DataEditorControl_Init);
+			// assign the save event for the data-type/editor
+			this.DataEditorControl.OnSave += this.DataEditorControl_OnSave;
 		}
 
 		/// <summary>
@@ -93,14 +94,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// Gets or sets the search filter.
 		/// </summary>
 		/// <value>the filter of the search.</value>
-		[DataEditorSetting("Search Filter", defaultValue = "", type = typeof(umbraco.editorControls.SettingControls.TextField))]
+		[DataEditorSetting("Search Filter", defaultValue = "", type = typeof(TextField))]
 		public string SearchFilter { get; set; }
 
 		/// <summary>
 		/// Gets or sets whether to use only one map point or multiple.
 		/// </summary>
 		/// <value>A boolean indicating whether or not only one map point or multiple will be used.</value>
-		[DataEditorSetting("Use Only One Map Point", defaultValue = "False", type = typeof(umbraco.editorControls.SettingControls.CheckBox))]
+		[DataEditorSetting("Use Only One Map Point", defaultValue = "False", type = typeof(CheckBox))]
 		public string UseOnlyOneMapPoint { get; set; }
 		//public bool UseOnlyOneMapPoint { get; set; }
 
@@ -116,8 +117,8 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.DefaultZoom = this.DefaultZoom;
 			this.m_Control.MapHeight = this.MapHeight;
 			this.m_Control.MapWidth = this.MapWidth;
-			this.m_Control.SearchFilter = this.SearchFilter ?? "";
-			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint ?? "false";
+			this.m_Control.SearchFilter = this.SearchFilter ?? string.Empty;
+			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint ?? bool.FalseString;
 		}
 
 		/// <summary>
@@ -148,57 +149,57 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
             FixPrevalueSettings();
         }
 
-        /// <summary>
-        /// Adds an alias the prevalue settings that are stored in the database.
-        /// </summary>
-        private void FixPrevalueSettings()
-        {
-            var storage = new DataEditorSettingsStorage();
-            var settings = storage.GetSettings(this.DataTypeDefinitionId);
-            var keys = settings.Select(s => s.Key);
+		/// <summary>
+		/// Adds an alias the prevalue settings that are stored in the database.
+		/// </summary>
+		private void FixPrevalueSettings()
+		{
+			var storage = new DataEditorSettingsStorage();
+			var settings = storage.GetSettings(this.DataTypeDefinitionId);
+			var keys = settings.Select(s => s.Key);
 
-            if (keys.Contains(null))
-            {
-                var s = this.Settings();
+			if (keys.Contains(null))
+			{
+				var s = this.Settings();
 
-                if (settings.Count == s.Count)
-                {
-                    var updatedSettings = new List<Setting<string, string>>();
-                    var enumerator = s.GetEnumerator();
+				if (settings.Count == s.Count)
+				{
+					var updatedSettings = new List<Setting<string, string>>();
+					var enumerator = s.GetEnumerator();
 
-                    foreach (Setting<string, string> setting in settings)
-                    {
-                        enumerator.MoveNext();
-                        updatedSettings.Add(new Setting<string, string>()
-                        {
-                            Key = enumerator.Current.Key,
-                            Value = setting.Value
-                        });
-                    }
+					foreach (var setting in settings)
+					{
+						enumerator.MoveNext();
 
-                    storage.UpdateSettings(this.DataTypeDefinitionId, updatedSettings);
-                }
-            }
-        }
+						updatedSettings.Add(new Setting<string, string>()
+						{
+							Key = enumerator.Current.Key,
+							Value = setting.Value
+						});
+					}
 
-        /// <summary>
-        /// Gets a the DataEditorSettings.
-        /// </summary>
-        /// <returns></returns>
-        internal Dictionary<string, DataEditorSetting> Settings()
-        {
-            Dictionary<string, DataEditorSetting> s = new Dictionary<string, DataEditorSetting>();
+					storage.UpdateSettings(this.DataTypeDefinitionId, updatedSettings);
+				}
+			}
+		}
 
-            foreach (System.Reflection.PropertyInfo p in this.GetType().GetProperties())
-            {
+		/// <summary>
+		/// Gets a the DataEditorSettings.
+		/// </summary>
+		/// <returns></returns>
+		internal Dictionary<string, DataEditorSetting> Settings()
+		{
+			var s = new Dictionary<string, DataEditorSetting>();
 
-                object[] o = p.GetCustomAttributes(typeof(DataEditorSetting), true);
+			foreach (var p in this.GetType().GetProperties())
+			{
+				var o = p.GetCustomAttributes(typeof(DataEditorSetting), true);
 
-                if (o.Length > 0)
-                    s.Add(p.Name, (DataEditorSetting)o[0]);
-            }
+				if (o.Length > 0)
+					s.Add(p.Name, (DataEditorSetting)o[0]);
+			}
 
-            return s;
-        }
+			return s;
+		}
 	}
 }

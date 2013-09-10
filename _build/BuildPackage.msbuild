@@ -9,8 +9,8 @@
 	<PropertyGroup>
 		<VersionMajor>2</VersionMajor>
 		<VersionMinor>0</VersionMinor>
-		<VersionPatch>8</VersionPatch>
-		<VersionSuffix>-dev</VersionSuffix>
+		<VersionPatch>7</VersionPatch>
+		<VersionSuffix>-build</VersionSuffix>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -32,6 +32,11 @@
 			<Output TaskParameter="Build" PropertyName="Build" />
 			<Output TaskParameter="Revision" PropertyName="Revision" />
 		</Version>
+
+		<PropertyGroup>
+			<VersionSuffix Condition="'$(VersionSuffix)' == '-build'">$(VersionSuffix)$(Build)</VersionSuffix>
+		</PropertyGroup>
+
 		<AssemblyInfo CodeLanguage="CS"
 			OutputFile="$(RootDir)\Properties\VersionInfo.cs"
 			AssemblyVersion="$(VersionMajor).$(VersionMinor).$(VersionPatch)"
@@ -44,19 +49,21 @@
 		<MSBuild Projects="$(RootDir)\..\Our.Umbraco.GoogleMaps.sln" Properties="Configuration=Release" />
 	</Target>
 
-	<!-- PREPAIRE FILES -->
-	<Target Name="PrepairFiles" DependsOnTargets="Compile">
+	<!-- PREPARE FILES -->
+	<Target Name="PrepareFiles" DependsOnTargets="Compile">
 		<ItemGroup>
 			<BinFiles Include="$(RootDir)\bin\Release\Our.Umbraco.GoogleMaps.dll" />
+			<DebugFiles Include="$(RootDir)\bin\Release\Our.Umbraco.GoogleMaps.pdb" />
 			<PackageFile Include="$(MSBuildProjectDirectory)\package.xml" />
 		</ItemGroup>
 		<TimestampOffset Files="@(BinFiles)" Offset="-11" />
 		<Copy SourceFiles="@(BinFiles)" DestinationFolder="$(BuildDir)\bin" />
+		<Copy SourceFiles="@(DebugFiles)" DestinationFolder="$(BuildDir)\bin" Condition="$(VersionSuffix.StartsWith('-build'))" />
 		<Copy SourceFiles="@(PackageFile)" DestinationFolder="$(BuildDir)" />
 	</Target>
 
 	<!-- MANIFEST -->
-	<Target Name="Manifest" DependsOnTargets="PrepairFiles">
+	<Target Name="Manifest" DependsOnTargets="PrepareFiles">
 		<ItemGroup>
 			<ManifestFiles Include="$(BuildDir)\**\*" Exclude="$(BuildDir)\package.xml" />
 		</ItemGroup>

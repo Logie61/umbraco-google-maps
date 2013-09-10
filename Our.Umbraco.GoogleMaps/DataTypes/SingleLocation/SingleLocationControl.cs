@@ -233,7 +233,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			divLocation.Controls.Add(this.LocationTextBox);
 
 			// location button
-			string locationButtonText = this.UseOnlyOneMapPoint.ToLower() == "true" ? "Reset" : "Clear";
+			var locationButtonText = this.UseOnlyOneMapPoint.ToLower() == "true" ? "Reset" : "Clear";
 			this.LocationButton = new HtmlInputButton() { Value = locationButtonText };
 			this.LocationButton.Attributes.Add("class", "button");
 			this.LocationButton.Attributes.Add("onclick", "javascript:UmbracoGoogleMapMapDataType.clear(this); return false;");
