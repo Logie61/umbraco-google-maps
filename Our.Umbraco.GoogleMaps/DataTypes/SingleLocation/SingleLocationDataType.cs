@@ -94,16 +94,15 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// Gets or sets the search filter.
 		/// </summary>
 		/// <value>the filter of the search.</value>
-		[DataEditorSetting("Search Filter", defaultValue = "", type = typeof(TextField))]
+		[DataEditorSetting("Search Filter", description = "Restricts search results to the specified locality.", defaultValue = "", type = typeof(TextField))]
 		public string SearchFilter { get; set; }
 
 		/// <summary>
 		/// Gets or sets whether to use only one map point or multiple.
 		/// </summary>
 		/// <value>A boolean indicating whether or not only one map point or multiple will be used.</value>
-		[DataEditorSetting("Use Only One Map Point", defaultValue = "False", type = typeof(CheckBox))]
+		[DataEditorSetting("Single Map Point", description = "Automatically selects the first marker from the search.", defaultValue = "False", type = typeof(CheckBox))]
 		public string UseOnlyOneMapPoint { get; set; }
-		//public bool UseOnlyOneMapPoint { get; set; }
 
 		/// <summary>
 		/// Handles the Init event of the m_Control control.
