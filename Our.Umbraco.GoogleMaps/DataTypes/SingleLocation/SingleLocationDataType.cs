@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq;
 using Our.Umbraco.GoogleMaps.Helpers;
 using umbraco.cms.businesslogic.datatype;
 using umbraco.editorControls.SettingControls;
-using System.Collections.Generic;
 
 namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 {
@@ -30,9 +28,6 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 
 			// assign the value to the control
 			this.m_Control.PreRender += new EventHandler(this.m_Control_PreRender);
-
-			// assign the init event for the data-type/editor
-			this.DataEditorControl.Init += this.DataEditorControl_Init;
 
 			// assign the save event for the data-type/editor
 			this.DataEditorControl.OnSave += this.DataEditorControl_OnSave;
@@ -138,72 +133,6 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		private void DataEditorControl_OnSave(EventArgs e)
 		{
 			this.Data.Value = this.m_Control.Data;
-		}
-
-		/// <summary>
-		/// Handles the Init method of the DataEditorControl.
-		/// </summary>
-		private void DataEditorControl_Init(object sender, EventArgs e)
-		{
-			// TODO: [LK] We should move this to a custom PackageAction, as it is due to a bug in the Umbraco core.
-			// See here for more details: http://issues.umbraco.org/issue/U4-2833
-			// The package manifest does not contain the appropriate data to successfully install the `DataEditorSetting` prevalues.
-			// Ultimately this need to be fixed in the core.
-			// In the meantime, we can include a PackageAction to rectify the issue - so that it is only executed once, not every init (of this control).
-			this.FixPrevalueSettings();
-		}
-
-		/// <summary>
-		/// Adds an alias the prevalue settings that are stored in the database.
-		/// </summary>
-		private void FixPrevalueSettings()
-		{
-			var storage = new DataEditorSettingsStorage();
-			var settings = storage.GetSettings(this.DataTypeDefinitionId);
-			var keys = settings.Select(s => s.Key);
-
-			if (keys.Contains(null))
-			{
-				var s = this.Settings();
-
-				if (settings.Count == s.Count)
-				{
-					var updatedSettings = new List<Setting<string, string>>();
-					var enumerator = s.GetEnumerator();
-
-					foreach (var setting in settings)
-					{
-						enumerator.MoveNext();
-
-						updatedSettings.Add(new Setting<string, string>()
-						{
-							Key = enumerator.Current.Key,
-							Value = setting.Value
-						});
-					}
-
-					storage.UpdateSettings(this.DataTypeDefinitionId, updatedSettings);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Gets a the DataEditorSettings.
-		/// </summary>
-		/// <returns></returns>
-		internal Dictionary<string, DataEditorSetting> Settings()
-		{
-			var s = new Dictionary<string, DataEditorSetting>();
-
-			foreach (var p in this.GetType().GetProperties())
-			{
-				var o = p.GetCustomAttributes(typeof(DataEditorSetting), true);
-
-				if (o.Length > 0)
-					s.Add(p.Name, (DataEditorSetting)o[0]);
-			}
-
-			return s;
 		}
 	}
 }
