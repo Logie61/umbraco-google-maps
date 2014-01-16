@@ -187,6 +187,10 @@ UmbracoGoogleMap.map.prototype = {
 				UmbracoGoogleMapMapDataType.setMarker(self, marker);
 			});
 
+			google.maps.event.addListener(this._map, 'zoom_changed', function (e) {
+			    UmbracoGoogleMapMapDataType.setMarker(self, marker);
+			});
+
 			this._markers[0] = marker;
 			UmbracoGoogleMapMapDataType.setMarker(self, marker, zoom);
 		}
