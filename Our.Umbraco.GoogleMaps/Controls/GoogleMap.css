@@ -29,3 +29,18 @@
 	height: 375px;
 	width: 461px;
 }
+
+/* Fixing scrollbars in fmText*/
+.fmText {
+    min-width: 200px;
+    max-width: 200px;
+}
+
+    .fmText > div {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+        .fmText > div > div {
+            white-space: normal;
+        }
