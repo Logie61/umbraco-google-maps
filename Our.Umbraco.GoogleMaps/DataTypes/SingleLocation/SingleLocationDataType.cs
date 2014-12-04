@@ -99,6 +99,13 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		[DataEditorSetting("Single Map Point", description = "Automatically selects the first marker from the search.", defaultValue = "False", type = typeof(CheckBox))]
 		public string UseOnlyOneMapPoint { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether to reverse geocode any searches containing Lat/Long points.
+		/// </summary>
+        /// <value>A boolean indicating whether or not to reverse geocode any searches containing Lat/Long points.</value>
+		[DataEditorSetting("Reverse Geocode", description = "Whether to reverse geocode any searches containing Lat/Long points.", defaultValue = "True", type = typeof(CheckBox))]
+		public string ReverseGeocode { get; set; }
+
 		/// <summary>
 		/// Handles the Init event of the m_Control control.
 		/// </summary>
@@ -113,6 +120,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.MapWidth = this.MapWidth;
 			this.m_Control.SearchFilter = this.SearchFilter ?? string.Empty;
 			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint ?? bool.FalseString;
+		    this.m_Control.ReverseGeocode = this.ReverseGeocode ?? bool.TrueString;
 		}
 
 		/// <summary>

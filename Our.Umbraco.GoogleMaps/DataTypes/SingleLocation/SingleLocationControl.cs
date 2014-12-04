@@ -105,6 +105,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// <value>A boolean which indicates whether one map point or multiple will be used.</value>
 		public string UseOnlyOneMapPoint { get; set; }
 
+        /// <summary>
+        /// Gets or sets the whether to reverse geocode any searches containing Lat/Long points.
+        /// </summary>
+        /// <value>True or false depending on whether reverse geocoding used used any searches containing Lat/Long points.</value>
+        public string ReverseGeocode { get; set; }
+
 		/// <summary>
 		/// Gets or sets the google map.
 		/// </summary>
@@ -128,6 +134,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// </summary>
 		/// <value>True or false depending on whether only one map point or multiple will be used.</value>
 		public HtmlInputHidden HiddenUseOnlyOnePoint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the whether to reverse geocode any searches containing Lat/Long points.
+        /// </summary>
+        /// <value>True or false depending on whether reverse geocoding used used any searches containing Lat/Long points.</value>
+        public HtmlInputHidden HiddenReverseGeocode { get; set; }
 
 		/// <summary>
 		/// Gets or sets the location text box.
@@ -273,6 +285,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			};
 			this.HiddenUseOnlyOnePoint.Attributes.Add("class", "useOnlyOnePoint");
 			this.Controls.Add(this.HiddenUseOnlyOnePoint);
+
+            this.HiddenReverseGeocode = new HtmlInputHidden()
+            {
+                ID = string.Concat("reverseGeocode_", this.ClientID),
+                Value = this.UseOnlyOneMapPoint.ToLower()
+            };
+            this.HiddenUseOnlyOnePoint.Attributes.Add("class", "reverseGeocode");
+            this.Controls.Add(this.HiddenUseOnlyOnePoint);
 		}
 	}
 }

@@ -34,6 +34,7 @@
 				<PreValue Id="4" Alias="MapWidth" Value="459" />
 				<PreValue Id="5" Alias="SearchFilter" Value="" />
 				<PreValue Id="6" Alias="UseOnlyOneMapPoint" Value="False" />
+        <PreValue Id="6" Alias="ReverseGeocode" Value="True" />
 			</PreValues>
 		</DataType>
 	</DataTypes>
