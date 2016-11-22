@@ -1,5 +1,5 @@
-glob:*.suo
-glob:*/bin/*
-glob:*/obj/*
-glob:*.Cache
-glob:*.csproj.user
+*.suo
+*/bin/*
+*/obj/*
+*.Cache
+*.csproj.user
