@@ -99,6 +99,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		[DataEditorSetting("Single Map Point", description = "Automatically selects the first marker from the search.", defaultValue = "False", type = typeof(CheckBox))]
 		public string UseOnlyOneMapPoint { get; set; }
 
+		/// <summary>
+		/// Gets or sets the Google API key.
+		/// </summary>
+		[DataEditorSetting("Google API key", description = "To get API key go to https://console.developers.google.com.", type = typeof(TextField))]
+		public string ApiKey { get; set; }
+
         /// <summary>
         /// Gets or sets whether to reverse geocode any searches containing Lat/Long points.
 		/// </summary>
@@ -119,6 +125,7 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			this.m_Control.MapHeight = this.MapHeight;
 			this.m_Control.MapWidth = this.MapWidth;
 			this.m_Control.SearchFilter = this.SearchFilter ?? string.Empty;
+			this.m_Control.ApiKey = this.ApiKey ?? string.Empty;
 			this.m_Control.UseOnlyOneMapPoint = this.UseOnlyOneMapPoint ?? bool.FalseString;
 		    this.m_Control.ReverseGeocode = this.ReverseGeocode ?? bool.TrueString;
 		}
