@@ -100,6 +100,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		public string SearchFilter { get; set; }
 
 		/// <summary>
+		/// Gets or sets the Api Key.
+		/// </summary>
+		/// <value>Api key.</value>
+		public string ApiKey { get; set; }
+
+		/// <summary>
 		/// Gets or sets the whether to use only one point or multiple.
 		/// </summary>
 		/// <value>A boolean which indicates whether one map point or multiple will be used.</value>
@@ -122,6 +128,12 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 		/// </summary>
 		/// <value>The hidden location.</value>
 		public HtmlInputHidden HiddenLocation { get; set; }
+
+		/// <summary>
+		/// Gets or sets the apiKey.
+		/// </summary>
+		/// <value>The API key.</value>
+		public HtmlInputHidden HiddenApiKey { get; set; }
 
 		/// <summary>
 		/// Gets or sets the hidden search filter.
@@ -269,6 +281,14 @@ namespace Our.Umbraco.GoogleMaps.DataTypes.SingleLocation
 			};
 			this.HiddenLocation.Attributes.Add("class", "defaultloc");
 			this.Controls.Add(this.HiddenLocation);
+
+			this.HiddenApiKey = new HtmlInputHidden()
+			{
+				ID = string.Concat("apiKey_", this.ClientID),
+				Value = this.ApiKey
+			};
+			this.HiddenApiKey.Attributes.Add("class", "gmap-apikey");
+			this.Controls.Add(this.HiddenApiKey);
 
 			this.HiddenSearchFilter = new HtmlInputHidden()
 			{

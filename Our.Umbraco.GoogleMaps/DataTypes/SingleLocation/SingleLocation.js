@@ -1,6 +1,7 @@
 if (UmbracoGoogleMap == undefined) var UmbracoGoogleMap = {};
 if (!UmbracoGoogleMap.defaultLocation) { UmbracoGoogleMap.defaultLocation = ''; }
 if (!UmbracoGoogleMap.searchFilter) { UmbracoGoogleMap.searchFilter = ''; }
+if (!UmbracoGoogleMap.apiKey) { UmbracoGoogleMap.apiKey = ''; }
 if (!UmbracoGoogleMap.useOnlyOnePoint) { UmbracoGoogleMap.useOnlyOnePoint = false; }
 if (!UmbracoGoogleMap.reverseGeocode) { UmbracoGoogleMap.reverseGeocode = true; }
 
@@ -307,6 +308,7 @@ UmbracoGoogleMap.loadMapsApi = function (cb) {
         url: '//maps.google.com/maps/api/js',
         data: {
             v: "3.8",
+            key: UmbracoGoogleMap.apiKey,
             sensor: false,
             callback: cb
         },
@@ -334,6 +336,7 @@ if (typeof ItemEditing != 'undefined') {
 } else {
 
     jQuery(document).ready(function () {
+        UmbracoGoogleMap.apiKey = jQuery('input.gmap-apikey').attr('value');
         UmbracoGoogleMap.loadMapsApi('UmbracoGoogleMapMapDataType.guiMap');
 
         jQuery('input.value').focus(function () {
