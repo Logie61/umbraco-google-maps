@@ -307,7 +307,6 @@ UmbracoGoogleMap.loadMapsApi = function (cb) {
         dataType: "script",
         url: '//maps.google.com/maps/api/js',
         data: {
-            v: "3.8",
             key: UmbracoGoogleMap.apiKey,
             sensor: false,
             callback: cb
